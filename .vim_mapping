@@ -1,0 +1,13 @@
+let mapleader=","
+nnoremap <leader>ev :vs $MYVIMRC<CR>
+nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
+
+
+
+
+
+
+
+
+iabbrev oweb oliver.schwanke@web.de
+iabbrev twipwweb    schwanke@twip-os.com
