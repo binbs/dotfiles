@@ -1,13 +1,73 @@
+" vim: set ft=vim:
 let mapleader=","
-nnoremap <leader>ev :vs $MYVIMRC<CR>
+let maplocalleader=",,"
+nnoremap <leader>ev     :vs $MYVIMRC<CR>
 nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
+nnoremap <leader>sv     :source $MYVIMRC<CR>
+" ================== spacebar folding ===========
+nnoremap <space>        za
+
+" ================= put esc on jk ================
+inoremap jk  <ESC>
+inoremap <ESC> <nop>
+" =============== remap motion ==============
+nnoremap H 0
+nnoremap L $
+nnoremap J G
+nnoremap K gg
+noremap <left> <nop>
+noremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
 
 
+" ============ better handling for english brackets ==========
+nnoremap ö [
+nnoremap Ö {
+nnoremap ä ]
+nnoremap Ä }
+" ============= special remappers ============
+" surround current selection with "
+"vnoremap <leader>" <ESC>'<i"<ESC>'>a"<ESC>
 
+" ============ Nerdtree =============
+nnoremap <C-n> :NERDTreeToggle<CR><C-C>
+" ============ TagBar ===============
+nnoremap <F8> :TagbarToggle<CR>
+" =========== open current plugin list ==========
+nnoremap <F3> :vs ~/.init_config/remotes.txt<CR>
 
+" =========== NERDCommenter ================
+" just for refernce, check
+" https://github.com/preservim/nerdcommenter
+" for more
+" nnoremap <leader>cc     :NERDCommenterComment<CR>
+" nnoremap <leader>cn     :NERDCommenterNested<CR>
+" nnoremap <leader>c<space>     :NERDCommenterToggle<CR>
+" nnoremap <leader>cm     :NERDCommenterMinimal<CR>
+" nnoremap <leader>ci     :NERDCommenterInvert<CR>
+" nnoremap <leader>cs     :NERDCommenterSexy<CR>
+" nnoremap <leader>cy     :NERDCommenterYank<CR>
+" nnoremap <leader>c$     :NERDCommenterToEOL<CR>
+" nnoremap <leader>cA     :NERDCommenterAppend<CR>
 
+" ============= Python ===============
+"nnoremap <F5>   python3;clear;python3 %s;
 
-
-
+iabbrev @@  oliver.schwanke@web.de
 iabbrev oweb oliver.schwanke@web.de
 iabbrev twipwweb    schwanke@twip-os.com
+iabbrev tehn then
+iabbrev adn and
+iabbrev waht what
+
+
+
+
+
+
+
+
+" =========== operator remapping ============0
+" parenthesis
+onoremap p i(
