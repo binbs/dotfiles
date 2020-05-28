@@ -20,12 +20,22 @@ noremap <right> <nop>
 noremap <up> <nop>
 noremap <down> <nop>
 
-
+inoremap ö [
+inoremap ä ]
 " ============ better handling for english brackets ==========
+" multiple keytrokes must be mapped for its own...
+"ö
 nnoremap ö [
+nnoremap öö [[
+"Ö
 nnoremap Ö {
+nnoremap ÖÖ {{
+"ä
 nnoremap ä ]
+nnoremap ää ]]
+"Ä
 nnoremap Ä }
+nnoremap ÄÄ }}
 " ============= special remappers ============
 " surround current selection with "
 "vnoremap <leader>" <ESC>'<i"<ESC>'>a"<ESC>
