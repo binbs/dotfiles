@@ -63,7 +63,6 @@ set hlsearch	                            " highlight search results
 set smartcase                               " setting case insensitivity for all-small letter searches
 " }}}
 
-
 " Airline Settings----------- {{{
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#formatter='unique_tail'
@@ -198,7 +197,6 @@ augroup vimrc_pythoncommands
     autocmd FileType python,rst,c,cpp set colorcolumn=88
 augroup END
 " }}}
-
 
 "\vimrc_startupcode ----------- {{{
 augroup vimrc_startupcode
