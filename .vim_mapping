@@ -5,16 +5,16 @@ let maplocalleader=",,"
 nnoremap <leader>; :execute "normal! mqA;\e`q"<CR>
 " Grep Helper----------- {{{
 " This one greps for the cWORD under Cursor...
-nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+"nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 nnoremap <leader>h :cprevious<CR>
 nnoremap <leader>l :cnext<CR>
 " }}}
-
 
 " vimrc management----------- {{{
 nnoremap <leader>ev     :vs $MYVIMRC<CR>
 nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
 nnoremap <leader>sv     :source $MYVIMRC<CR>ZZ
+nnoremap <leader><F5>   :w<CR> :source % <CR>
 " }}}
 
 " spacebar folding----------- {{{
@@ -22,6 +22,8 @@ nnoremap <space>        za
 " }}}
 
 " put esc on jk----------- {{{
+vnoremap jk  <ESC>
+vnoremap <ESC> <nop>
 inoremap jk  <ESC>
 inoremap <ESC> <nop>
 " }}}
@@ -82,10 +84,10 @@ imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
 " }}}
 
 " abbreviations, common----------- {{{
-iabbrev @@  oliver.schwanke@web.de
 iabbrev oweb oliver.schwanke@web.de
-iabbrev twipwweb    schwanke@twip-os.com
+iabbrev twipweb    schwanke@twip-os.com
 iabbrev tehn then
+iabbrev tahn than
 iabbrev adn and
 iabbrev waht what
 iabbrev isntall install
@@ -115,7 +117,6 @@ onoremap an{ :<c-u>normal! f{va{<CR>
 onoremap al{ :<c-u>normal! F{va{<CR>
 " check omap-info for details
 " " }}}
-
 
 " Vimscript filetype settings -------------------- {{{
 augroup filteype_vim
