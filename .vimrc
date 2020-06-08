@@ -203,7 +203,13 @@ augroup vimrc_startupcode
     autocmd!
     autocmd StdinReadPre * let g:isReadingFromStdin = 1
     autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | Startify | endif
-    autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
+    "autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
 augroup END
+" }}}
+
+" UltiSnippets----------- {{{
+let g:UltiSnipsExpandTrigger = "<leader>a"
+let g:UltiSnipsJumpForwardTrigger = "<c-l>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-h>"
 " }}}
 
