@@ -13,7 +13,7 @@ nnoremap <leader>l :cnext<CR>
 " vimrc management----------- {{{
 nnoremap <leader>ev     :vs $MYVIMRC<CR>
 nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
-nnoremap <leader>sv     :source $MYVIMRC<CR>ZZ
+nnoremap <leader>sv     :source $MYVIMRC<CR>
 nnoremap <leader><F5>   :w<CR> :source % <CR>
 " }}}
 
@@ -29,10 +29,6 @@ inoremap <ESC> <nop>
 " }}}
 
 " remap motion----------- {{{
-nnoremap H 0
-nnoremap L $
-nnoremap J G
-nnoremap K gg
 no <down> <Nop>
 no <left> <Nop>
 no <right> <Nop>
@@ -79,8 +75,13 @@ nnoremap <F10> :bnext<CR>
 " }}}
 
 " PYthon----------- {{{
-nnoremap <F5>   python3;clear;python3 %s;
-imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
+" tut noch net so ganz...
+" run und debug line wäre auch noch cool
+augroup python_cmds
+    autocmd!
+    autocmd FileType python :nnoremap <F5>   :python3;clear;python3 %s;
+    imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>!
+augroup END
 " }}}
 
 " abbreviations, common----------- {{{

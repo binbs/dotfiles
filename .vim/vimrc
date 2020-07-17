@@ -12,8 +12,6 @@
 call plug#begin('~/.vim/plugged')
      Plug 'junegunn/vim-plug'
      Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-
      Plug 'mhinz/vim-startify'
 call plug#end()
  " }}}
