@@ -120,7 +120,9 @@ alias config='/usr/bin/git --git-dir=/home/olli/.cfg/ --work-tree=/home/olli'
 
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.local/bin/virtualenv
 export WORKON_HOME=$HOME/Envs
+export PROJECT_HOME=$HOME/Pythonskripte
 if [ -f ~/.local/bin/virtualenvwrapper.sh ]; then
     source $HOME/.local/bin/virtualenvwrapper.sh
 fi
