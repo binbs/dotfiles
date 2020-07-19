@@ -2,7 +2,9 @@
 let mapleader=","
 let maplocalleader=",,"
 
+" adding a semicolon to the end of the line
 nnoremap <leader>; :execute "normal! mqA;\e`q"<CR>
+
 " Grep Helper----------- {{{
 " This one greps for the cWORD under Cursor...
 "nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
@@ -14,7 +16,7 @@ nnoremap <leader>l :cnext<CR>
 nnoremap <leader>ev     :vs $MYVIMRC<CR>
 nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
 nnoremap <leader>sv     :source $MYVIMRC<CR>
-nnoremap <leader><F5>   :w<CR> :source % <CR>
+nnoremap <leader><F3>   :w<CR> :source % <CR>
 " }}}
 
 " spacebar folding----------- {{{
@@ -61,10 +63,6 @@ nnoremap Ä }
 nnoremap ÄÄ }}
 " }}}
 
-" Nerdtree----------- {{{
-nnoremap <C-n> :NERDTreeToggle<CR><C-C>
-" }}}
-
 " Tagbar----------- {{{
 nnoremap <F8> :TagbarToggle<CR>
 " }}}
@@ -74,13 +72,14 @@ nnoremap <F9> :bprev<CR>
 nnoremap <F10> :bnext<CR>
 " }}}
 
-" PYthon----------- {{{
+" Python----------- {{{
 " tut noch net so ganz...
 " run und debug line wäre auch noch cool
 augroup python_cmds
     autocmd!
     autocmd FileType python :nnoremap <F5>   :python3;clear;python3 %s;
     imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>!
+    autocmd FileType python :autocmd! python_cmds BufWritePost <buffer> :!black %
 augroup END
 " }}}
 
@@ -128,8 +127,4 @@ augroup filteype_vim
 augroup END
 " }}}
 
-" YouCompleteME Settings----------- {{{
-nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>d :YcmCompleter GoToDefinition<CR>
-" }}}
 

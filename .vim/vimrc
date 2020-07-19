@@ -88,6 +88,8 @@ set clipboard=unnamed                       " use system clipboard
 set exrc                                    " enable usage of additional .vimrc files from working directory
 set secure                                  " prohibit .vimrc files to execute shell, create files, etc...
 
+" this is from some thoughtbot tutorial and resizes the currently active
+" 'window' to be as large as possible
 set winwidth=84
 set winheight=5
 set winminheight=5
@@ -96,8 +98,11 @@ set winheight=999
 "=====================================================
 "" Tabs / Buffers settings
 "=====================================================
-tab sball
-set switchbuf=useopen
+" some tab mod...
+" tab sball
+" some ...tab modifier. not sure what this does
+" set switchbuf=useopen
+" always have statusbar
 set laststatus=2
 
 
@@ -143,15 +148,15 @@ let g:tagbar_type_json = {
     \ },
     \ 'sort' : 0
     \ }
-:"=====================================================
-"" NERDTree settings
-"=====================================================
+""NERDTree settings ----------- {{{
 let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']     " Ignore files in NERDTree
 let NERDTreeWinSize=40
+" toggle nerdtree on cn...
+nnoremap <C-n> :NERDTreeToggle<CR><C-C>
+" }}}
 
-"=====================================================
-"" NERDComment Settings
-"=====================================================
+
+" NERDCommenter settings" ----------- {{{
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -172,16 +177,13 @@ let g:NERDCommentEmptyLines = 1
 
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+" }}}
 
-
-"=====================================================
-"" Indent Guides Settings
-"=====================================================
+" Indent guide settings----------- {{{
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-"=====================================================
-"" Python settings
-"=====================================================
+" }}}
 
+" Python-mode settings" ----------- {{{
 " python executables for different plugins
 " pymode settings
 let g:pymode = 1
@@ -299,6 +301,7 @@ let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
 let g:pymode_syntax_builtin_types=g:pymode_syntax_all
 let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
 let g:pymode_syntax_docstrings=g:pymode_syntax_all
+" }}}
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
@@ -321,13 +324,14 @@ augroup vimrc_autocmds
     autocmd FileType cpp        :iabbrev <buffer> rv retVal
     autocmd FileType cpp,python :iabbrev <buffer> rr return
     autocmd StdinReadPre * let g:isReadingFromStdin = 1
+
+    " Start with startify as startscreen and NERDTree
+    " when not directly opening some file
     autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | Startify | endif
     autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
 
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
-
-let g:airline#extensions#tabline#enabled = 1
 
 
 " -Markdown plugin----------- {{{
@@ -425,6 +429,23 @@ augroup vim_Markdown
 augroup END
 
 
+" }}}
+
+
+" YouCompleteME Settings----------- {{{
+nmap <leader>g :YcmCompleter GoTo<CR>
+nmap <leader>d :YcmCompleter GoToDefinition<CR>
+" }}}
+
+" Ultisnips settings----------- {{{
+"
+"" }}}
+"
+"
+" -vimtex settings----------- {{{
+"
+"
+"  " }}}
 
 
 
