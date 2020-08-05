@@ -1,6 +1,8 @@
 " vim: set ft=vim:
+" leader keys----------- {{{
 let mapleader=","
 let maplocalleader=",,"
+" }}}
 
 " adding a semicolon to the end of the line
 nnoremap <leader>; :execute "normal! mqA;\e`q"<CR>
@@ -127,4 +129,11 @@ augroup filteype_vim
 augroup END
 " }}}
 
+" Rust----------- {{{
+let g:rustfmt_autosave = 1
+" }}}
+
+" Function Key mappings----------- {{{
+nnoremap <F3> :FZF<CR>
+" " }}}
 

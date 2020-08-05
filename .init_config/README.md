@@ -32,3 +32,10 @@ For the vim-plug plugins use this and a `:PlugInstall` inside vim
 For the pathogen plugins use this one and some `:HelpTags` inside vim
 
     ./extract_git_remotes ~/.vim/bundle --clone
+
+## Submodules
+Adding can be done using
+    config submodule add 'origin path' 'local path'
+    or execute the add_to_config.sh
+Listing can be done using
+    config config --file .gitmodules --get-regexp path | awk '{ print $2 }'

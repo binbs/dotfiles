@@ -79,3 +79,21 @@
 [submodule ".vim/plugged/vim-startify"]
 	path = .vim/plugged/vim-startify
 	url = https://github.com/mhinz/vim-startify.git
+[submodule "/home/olli/.fzf"]
+	path = /home/olli/.fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule ".vim/bundle/vim-pythonx"]
+	path = .vim/bundle/vim-pythonx
+	url = https://github.com/reconquest/vim-pythonx.git
+[submodule ".vim/bundle/vim-snippets"]
+	path = .vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule ".vim/plugged/fzf"]
+	path = .vim/plugged/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule ".vim/plugged/fzf.vim"]
+	path = .vim/plugged/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git

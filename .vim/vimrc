@@ -7,18 +7,22 @@
    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
  endif
 
-
-
 call plug#begin('~/.vim/plugged')
-     Plug 'junegunn/vim-plug'
-     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-     Plug 'mhinz/vim-startify'
+    Plug 'junegunn/vim-plug'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    Plug 'mhinz/vim-startify'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
 call plug#end()
  " }}}
 "
 
+" Pathogen ----------- {{{
+" FZF shadows the :Helptags, but it still can be done using
+" :call pathogen#helptags()
 call pathogen#infect()
 call pathogen#helptags()
+" }}}
 
 syntax on
 filetype on
@@ -438,13 +442,22 @@ nmap <leader>d :YcmCompleter GoToDefinition<CR>
 " }}}
 
 " Ultisnips settings----------- {{{
-"
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
 "" }}}
 "
 "
 " -vimtex settings----------- {{{
-"
-"
+
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+let g:vimtex_view_general_options_latexmk = '--unique'
+
 "  " }}}
 
 
