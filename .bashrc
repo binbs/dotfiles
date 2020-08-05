@@ -115,7 +115,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-alias config='/usr/bin/git --git-dir=/home/olli/.cfg/ --work-tree=/home/olli'
+
+# This command enables the dotfiles organization via git
+alias config="/usr/bin/git --git-dir=/home/$USER/.cfg/ --work-tree=/home/$USER"
 
 
 
