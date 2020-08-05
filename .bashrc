@@ -93,8 +93,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# This command enables the dotfiles organization via git
+alias config="/usr/bin/git --git-dir=/home/$USER/.cfg/ --work-tree=/home/$USER"
+
+
 # Python virtualenv
-alias config='/usr/bin/git --git-dir=/home/olli/.cfg/ --work-tree=/home/olli'
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.local/bin/virtualenv
 export WORKON_HOME=$HOME/Envs
