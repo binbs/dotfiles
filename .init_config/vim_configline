@@ -1,0 +1,1 @@
+--with-features=huge --enable-multibyte --enable-python3interp=yes --enable-cscope

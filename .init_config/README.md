@@ -1,4 +1,4 @@
-# Git
+https://github.com/binbsoffn/dotfiles.git# Git
 ## [Tutorial](https://www.atlassian.com/git/tutorials/dotfiles)
 
     git init --bare $HOME/.cfg
@@ -17,13 +17,16 @@
     config checkout
 
     mkdir -p .config-backup && \
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
-    xargs -I{} mv {} .config-backup/{}
+    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
 
     config config --local status.showUntrackedFiles no
 
 
 ## Getting plugins
+you need to install pathogen manually
+mkdir -p ~/.vim/autoload ~/.vim/bundle
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
 You can use the python script lying in the .init_config folder accompanying this document
 For the vim-plug plugins use this and a `:PlugInstall` inside vim
 
