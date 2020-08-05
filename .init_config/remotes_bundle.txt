@@ -1,11 +1,9 @@
 https://github.com/thaerkh/vim-indentguides.git
-https://tpope.io/vim/fugitive.git
 https://github.com/vim-ctrlspace/vim-ctrlspace.git
 https://github.com/ycm-core/YouCompleteMe.git
 https://github.com/python-mode/python-mode.git
 https://github.com/rust-lang/rust.vim.git
 https://github.com/MattesGroeger/vim-bookmarks.git
-https://github.com/jarolrod/vim-python-ide.git
 https://github.com/ryanoasis/vim-devicons.git
 https://github.com/scrooloose/nerdtree.git
 https://github.com/majutsushi/tagbar.git
@@ -14,10 +12,7 @@ https://github.com/tomtom/tlib_vim.git
 https://github.com/scrooloose/nerdcommenter.git
 https://github.com/flazz/vim-colorschemes.git
 https://github.com/MarcWeber/vim-addon-mw-utils.git
-https://github.com/mileszs/ack.vim.git
-git://github.com/godlygeek/tabular.git
+https://github.com/godlygeek/tabular.git
 https://github.com/vim-airline/vim-airline.git
-https://github.com/jarolrod/vim-python-ide.git
 https://github.com/vim-airline/vim-airline-themes.git
 https://github.com/Glench/Vim-Jinja2-Syntax.git
-https://github.com/kien/rainbow_parentheses.vim.git
