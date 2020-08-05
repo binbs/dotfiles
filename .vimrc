@@ -1,1 +1,0 @@
-/home/olli/.vim/vimrc
