@@ -1,5 +1,12 @@
 # Git
 https://github.com/binbsoffn/dotfiles.git
+Nice Commands:
+    git push --set-upstream origin <branchname>
+    git pull --rebase <commitnumber>
+    git fetch --all
+    git rebase <commitnumber>
+    config checkout main -- .init_config/vim_configline
+
 ## [Tutorial](https://www.atlassian.com/git/tutorials/dotfiles)
 
     git init --bare $HOME/.cfg
