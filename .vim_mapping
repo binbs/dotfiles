@@ -95,10 +95,6 @@ iabbrev waht what
 iabbrev isntall install
 " }}}
 
-" relative Numbering----------- {{{
-nnoremap <F4> :set relativenumber!<CR>
-" }}}
-
 " operator remapping" ----------- {{{
 " parenthesis
 onoremap p i(
@@ -134,6 +130,8 @@ let g:rustfmt_autosave = 1
 " }}}
 
 " Function Key mappings----------- {{{
+nnoremap <F2> :YcmCompleter GetDoc<CR>
 nnoremap <F3> :FZF<CR>
+nnoremap <F4> :set relativenumber!<CR>
 " " }}}
 

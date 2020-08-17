@@ -15,7 +15,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
 call plug#end()
  " }}}
-"
 
 " Pathogen ----------- {{{
 " FZF shadows the :Helptags, but it still can be done using
@@ -24,9 +23,8 @@ call pathogen#infect()
 call pathogen#helptags()
 " }}}
 
+" General Settings----------- {{{
 syntax on
-filetype on
-filetype plugin on
 filetype plugin indent on
 
 set nocompatible              " required
@@ -37,11 +35,6 @@ set showtabline=0
 " put inside search string
 set smartcase
 
-
-
-"=====================================================
-"" General settings
-"=====================================================
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
@@ -98,28 +91,23 @@ set winwidth=84
 set winheight=5
 set winminheight=5
 set winheight=999
+" }}}
 
-"=====================================================
-"" Tabs / Buffers settings
-"=====================================================
+" Tabs/BufferSettings" ----------- {{{
 " some tab mod...
 " tab sball
 " some ...tab modifier. not sure what this does
 " set switchbuf=useopen
 " always have statusbar
 set laststatus=2
+" }}}
 
-
-"=====================================================
-"" Search settings
-"=====================================================
+" Search Settings----------- {{{
 set incsearch	                            " incremental search
 set hlsearch	                            " highlight search results
+" }}}
 
-
-"=====================================================
-"" TagBar settings
-"=====================================================
+" Tagbar settings----------- {{{
 let g:tagbar_autofocus=1
 let g:tagbar_width=42
 
@@ -152,13 +140,14 @@ let g:tagbar_type_json = {
     \ },
     \ 'sort' : 0
     \ }
+" }}}
+
 ""NERDTree settings ----------- {{{
 let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']     " Ignore files in NERDTree
 let NERDTreeWinSize=40
 " toggle nerdtree on cn...
 nnoremap <C-n> :NERDTreeToggle<CR><C-C>
 " }}}
-
 
 " NERDCommenter settings" ----------- {{{
 " Add spaces after comment delimiters by default
@@ -339,8 +328,8 @@ augroup END
 
 
 " -Markdown plugin----------- {{{
-let g:mkdp_path_to_chrome = "firefox"
-let g:mkdp_browserfunc = 'firefox'
+" let g:mkdp_path_to_chrome = "firefox"
+" let g:mkdp_browserfunc = 'firefox'
 " Callback Vim function to open browser, the only parameter is the url to open.
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
@@ -349,13 +338,13 @@ let g:mkdp_auto_start = 0
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
 " default: 1
-let g:mkdp_auto_close = 1
+let g:mkdp_auto_close = 0
 
 " set to 1, the vim will refresh markdown when save the buffer or
 " leave from insert mode, default 0 is auto refresh markdown as you edit or
 " move the cursor
 " default: 0
-let g:mkdp_refresh_slow = 1
+let g:mkdp_refresh_slow = 0
 
 " set to 1, the MarkdownPreview command can be use for all files,
 " by default it can be use in markdown file
@@ -427,18 +416,31 @@ let g:mkdp_port = ''
 " ${name} will be replace with the file name
 let g:mkdp_page_title = '「${name}」'
 
-augroup vim_Markdown
+augroup vim_markdown
     autocmd!
-    autocmd FileType md, Markdown    :nnoremap <F5> <Plug>MarkdownPreviewToggle
+    autocmd BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.mdwn,*.md set ft=markdown
+    autocmd FileType md,markdown    nnoremap <F5> :MarkdownPreview<CR>
 augroup END
 
 
 " }}}
 
-
-" YouCompleteME Settings----------- {{{
-nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>d :YcmCompleter GoToDefinition<CR>
+" YouCompleteMe Settings----------- {{{
+nnoremap <leader>g :YcmCompleter GoTo<CR>
+nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>s :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>a :YcmCompleter GoToImplementation<CR>
+nnoremap <leader>n :YcmCompleter GoToReferences<CR>
+nnoremap <leader>f :YcmCompleter FixIt<CR>
+" nnoremap <leader>F :YcmCompleter Format<CR>
+" nnoremap <leader>E :YcmCompleter ExecuteCommand<CR>
+nnoremap <leader>K :YcmCompleter GetDoc<CR>
+nnoremap <leader>R :YcmCompleter RefactorRename<CR>
+nnoremap <localleader>r :YcmCompleter RestartServer<CR>
+"toggle hints, use nmap instead of nnoremap when using plug
+nmap <leader>D <plug>(YCMHover)
+"always use the recommended parameters for rls completer...
+let g:ycm_extra_conf_globlist = ["~/rust_projects/*"]
 " }}}
 
 " Ultisnips settings----------- {{{
@@ -450,7 +452,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
 "" }}}
-"
 "
 " -vimtex settings----------- {{{
 
