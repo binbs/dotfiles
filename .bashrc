@@ -96,7 +96,6 @@ fi
 # This command enables the dotfiles organization via git
 alias config="/usr/bin/git --git-dir=/home/$USER/.cfg/ --work-tree=/home/$USER"
 
-
 # Python virtualenv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.local/bin/virtualenv
