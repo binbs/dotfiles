@@ -137,3 +137,7 @@ let g:rustfmt_autosave = 1
 nnoremap <F3> :FZF<CR>
 " " }}}
 
+" Common Mappings----------- {{{
+nnoremap <leader>U v~
+" }}}
+
