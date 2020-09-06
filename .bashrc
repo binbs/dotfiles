@@ -138,4 +138,5 @@ fo() {
 
 # export PATH=/path/to/your/qt/installation/qtversion/gcc_64/bin:$PATH
 # export QT_SELECT=qt5-x86_64-linux-gnu
+CLANG_INSTALL_DIR=/usr/lib/llvm-10/
 LLVM_INSTALL_DIR=/usr/lib/llvm-10/
