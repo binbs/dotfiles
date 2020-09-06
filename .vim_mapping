@@ -79,9 +79,8 @@ nnoremap <F10> :bnext<CR>
 " run und debug line wäre auch noch cool
 augroup python_cmds
     autocmd!
-    autocmd FileType python :nnoremap <F5>   :python3;clear;python3 %s;
-    imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>!
-    autocmd FileType python :autocmd! python_cmds BufWritePost <buffer> :!black %
+"     autocmd BufWritePost,FileType python :!black % <CR>
+"     autocmd FileType python set autoread
 augroup END
 " }}}
 
@@ -121,12 +120,17 @@ augroup filteype_vim
     autocmd!
     autocmd FileType vim nnoremap --- O" ----------- {{{<ESC>0la
     autocmd FileType vim nnoremap ___ o" }}}<ESC>
-    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType lua,vim setlocal foldmethod=marker
 augroup END
 " }}}
 
 " Rust----------- {{{
 let g:rustfmt_autosave = 1
+augroup rust_filetype
+    autocmd!
+    autocmd FileType rust nnoremap <F5> :!cargo run<CR>
+    autocmd FileType rust nnoremap <leader><F5> :!cargo test<CR>
+augroup END
 " }}}
 
 " Function Key mappings----------- {{{

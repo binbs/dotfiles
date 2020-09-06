@@ -33,6 +33,7 @@ set hidden
 set showtabline=0
 " uses a caseinsensitive search unless caps are
 " put inside search string
+set ignorecase "required for smartcase
 set smartcase
 
 if filereadable(expand("~/.vimrc_background"))
@@ -419,7 +420,8 @@ let g:mkdp_page_title = '「${name}」'
 augroup vim_markdown
     autocmd!
     autocmd BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.mdwn,*.md set ft=markdown
-    autocmd FileType md,markdown    nnoremap <F5> :MarkdownPreview<CR>
+    autocmd FileType md,markdown    nmap <F5> <Plug>MarkdownPreviewToggle
+    " autocmd FileType md,markdown    nnoremap <F5> :MarkdownPreview<CR>
 augroup END
 
 
@@ -427,11 +429,12 @@ augroup END
 
 " YouCompleteMe Settings----------- {{{
 nnoremap <leader>g :YcmCompleter GoTo<CR>
-nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>s :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>a :YcmCompleter GoToImplementation<CR>
-nnoremap <leader>n :YcmCompleter GoToReferences<CR>
+nnoremap <leader>G :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>D :YcmCompleter GoToImplementation<CR>
+nnoremap <leader>j :YcmCompleter GoToReferences<CR>
 nnoremap <leader>f :YcmCompleter FixIt<CR>
+nnoremap <leader>F :YcmDiag<CR>
 " nnoremap <leader>F :YcmCompleter Format<CR>
 " nnoremap <leader>E :YcmCompleter ExecuteCommand<CR>
 nnoremap <leader>K :YcmCompleter GetDoc<CR>
@@ -441,6 +444,12 @@ nnoremap <localleader>r :YcmCompleter RestartServer<CR>
 nmap <leader>D <plug>(YCMHover)
 "always use the recommended parameters for rls completer...
 let g:ycm_extra_conf_globlist = ["~/rust_projects/*"]
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_always_populate_location_list = 1
+let g:ycm_open_loclist_on_ycm_diags = 1
+
+let g:ycm_key_invoke_completion = '<C-a>'
 " }}}
 
 " Ultisnips settings----------- {{{
