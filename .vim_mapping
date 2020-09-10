@@ -14,8 +14,17 @@ nnoremap <leader>l :cnext<CR>
 nnoremap <leader>ev     :vs $MYVIMRC<CR>
 nnoremap <leader>evm    :vs $HOME/.vim_mapping<CR>
 nnoremap <leader>sv     :source $MYVIMRC<CR>ZZ
-nnoremap <leader><F5>   :w<CR> :source % <CR>
+nnoremap <leader><F3>   :w<CR> :source % <CR>
 " }}}
+
+" F5/run mapping----------- {{{
+augroup F5_run_mapping
+    autocmd!
+    autocmd FileType rust nnoremap <F5> :!clear;cargo run;
+    autocmd FileType python nnoremap <F5>   python3;clear;python3 %s;
+nnoremap <F5>   python3;clear;python3 %s;
+" }}}
+
 
 " spacebar folding----------- {{{
 nnoremap <space>        za
@@ -29,10 +38,6 @@ inoremap <ESC> <nop>
 " }}}
 
 " remap motion----------- {{{
-nnoremap H 0
-nnoremap L $
-nnoremap J G
-nnoremap K gg
 no <down> <Nop>
 no <left> <Nop>
 no <right> <Nop>
@@ -79,8 +84,6 @@ nnoremap <F10> :bnext<CR>
 " }}}
 
 " PYthon----------- {{{
-nnoremap <F5>   python3;clear;python3 %s;
-imap <F5> <Esc>:w<CR>:!clear;python3 %<CR>
 " }}}
 
 " abbreviations, common----------- {{{
@@ -131,4 +134,7 @@ augroup END
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>d :YcmCompleter GoToDefinition<CR>
 " }}}
+
+" Git/SVN shortcuts----------- {{{
+" vmap <leader>g :<c-u>!git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 

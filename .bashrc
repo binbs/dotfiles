@@ -127,3 +127,8 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENV_PYTHON=/usr/bin/python3
 source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
+export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
+export PATH=$PATH:/usr/local/texlive/2020/bin/i386-linux
