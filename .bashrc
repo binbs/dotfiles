@@ -140,3 +140,8 @@ fo() {
 # export QT_SELECT=qt5-x86_64-linux-gnu
 CLANG_INSTALL_DIR=/usr/lib/llvm-10/
 LLVM_INSTALL_DIR=/usr/lib/llvm-10/
+
+
+### Setting some QtStylesheet via override
+export QT_STYLE_OVERRIDE=Adwaita:dark
+export GTK_THEME=Adwaita:dark

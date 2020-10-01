@@ -69,18 +69,23 @@ nnoremap ÄÄ }}
 nnoremap <F8> :TagbarToggle<CR>
 " }}}
 
-" Buffers ----------- {{{
-nnoremap <F9> :bprev<CR>
-nnoremap <F10> :bnext<CR>
-" }}}
-
 " Python----------- {{{
 " tut noch net so ganz...
 " run und debug line wäre auch noch cool
+" muss man das hier am besten in das python.vim ft snippet basteln, oder?!
 augroup python_cmds
     autocmd!
-"     autocmd BufWritePost,FileType python :!black % <CR>
-"     autocmd FileType python set autoread
+    " autocmd BufWritePost,FileType python :!black %
+    autocmd FileType python set autoread
+    autocmd FileType python     nnoremap <F5> :VBGcontinue<CR>
+    autocmd FileType python     nnoremap <C-F5> :VBGstartPDB3 %<CR>
+    autocmd FileType python     nnoremap <F6> :VBGstepOver<CR>
+    autocmd FileType python     nnoremap <C-F6> :VBGstepIn<CR>
+    autocmd FileType python     nnoremap <F7> :VBGtoggleBreakpointThisLine<CR>
+    autocmd FileType python     nnoremap <C-F7> :VBGstepOut<CR>
+    autocmd FileType python     nnoremap <C-F8> :VBGclearBreakpoints<CR>
+    autocmd FileType python     nnoremap <F9> :VBGevalSelectedText<CR>
+    autocmd FileType python     nnoremap <C-F9> :VBGevalWordUnderCursor<CR>
 augroup END
 " }}}
 
@@ -136,6 +141,7 @@ augroup END
 " Function Key mappings----------- {{{
 nnoremap <F2> :YcmCompleter GetDoc<CR>
 nnoremap <F3> :FZF<CR>
+nnoremap <C-F3> :Rg
 nnoremap <F4> :set relativenumber!<CR>
 " " }}}
 

@@ -35,6 +35,7 @@ set showtabline=0
 " put inside search string
 set ignorecase "required for smartcase
 set smartcase
+set conceallevel=0 "usefful for latex, hides $ signs and such things...
 
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
@@ -177,13 +178,17 @@ let g:NERDTrimTrailingWhitespace = 1
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 " }}}
 
-" Python-mode settings" ----------- {{{
+" Maybe remove this plugin. Im not going to use it anyways...
+" " Python-mode settings" ----------- {{{
 " python executables for different plugins
 " pymode settings
 let g:pymode = 1
+let g:pymode_warnings = 1
+" let g:pymode_paths = []
+"trim whitespace on save
+let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
 let g:pymode_python='python3'
-let g:pymode_warnings = 1
 let g:pymode_options_max_line_length = 87
 " ====  ============================
 " Key   Command
@@ -199,26 +204,56 @@ let g:pymode_options_max_line_length = 87
 " ====  ============================
 let g:pymode_motion = 1
 
-let g:pymode_quickfix_minheight = 3
-let g:pymode_quickfix_maxheight = 6
+let g:pymode_quickfix_minheight = 6
+let g:pymode_quickfix_maxheight = 12
 let g:pymode_preview_height = &previewheight
 let g:pymode_preview_position = 'botright'
 
 " code folding
-let g:pymode_folding=0
+let g:pymode_folding=1
 
 " pep8 indents
 let g:pymode_indent=1
+"
+" documentation
+let g:pymode_doc=1
+let g:pymode_doc_bind='K'
+
+" virtualenv
+let g:pymode_virtualenv=1
 
 " code running
 let g:pymode_run=1
 let g:pymode_run_bind='<leader>r'
+
 " breakpoints
 let g:pymode_breakpoint=1
 let g:pymode_breakpoint_key='<leader>b'
 
-"trim whitespace on save
-let g:pymode_trim_whitespaces = 1
+" lints
+" *:PymodeLint* -- Check code in current buffer
+" *:PymodeLintToggle* -- Toggle code checking
+" *:PymodeLintAuto* -- Fix PEP8 errors in current buffer automatically
+let g:pymode_lint=1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+" let g:pymode_lint_ignore = ["E501", "W",]
+let g:pymode_lint_ignore = ["E501"]
+" opens up a new window to show lints
+let g:pymode_lint_cwindow = 1
+let g:pymode_lint_signs = 1
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
+
+" syntax highlight
+let g:pymode_syntax=1
+let g:pymode_syntax_slow_sync=0
+let g:pymode_syntax_all=1
 
 " rope
 " |:PymodeRopeAutoImport| -- Resolve import for element under cursor
@@ -258,43 +293,6 @@ let g:pymode_rope_move_bind = '<C-c>rv'
 " Change function signature ~
 let g:pymode_rope_change_signature_bind = '<C-c>rs'
 
-" documentationPymodeRopeRedo
-let g:pymode_doc=0
-let g:pymode_doc_bind='K'
-
-" lints
-" *:PymodeLint* -- Check code in current buffer
-" *:PymodeLintToggle* -- Toggle code checking
-" *:PymodeLintAuto* -- Fix PEP8 errors in current buffer automatically
-let g:pymode_lint=1
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_ignore = ["E501", "W",]
-" opens up a new window to show lints
-let g:pymode_lint_cwindow = 1
-let g:pymode_lint_signs = 1
-
-" virtualenv
-let g:pymode_virtualenv=1
-
-" syntax highlight
-let g:pymode_syntax=1
-let g:pymode_syntax_slow_sync=0
-let g:pymode_syntax_all=1
-let g:pymode_syntax_print_as_function=g:pymode_syntax_all
-let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
-let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
-let g:pymode_syntax_highlight_self=g:pymode_syntax_all
-let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_formatting=g:pymode_syntax_all
-let g:pymode_syntax_space_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_format=g:pymode_syntax_all
-let g:pymode_syntax_string_templates=g:pymode_syntax_all
-let g:pymode_syntax_doctests=g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
-let g:pymode_syntax_docstrings=g:pymode_syntax_all
 " }}}
 
 " Some autocommands...----------- {{{
@@ -452,24 +450,30 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_open_loclist_on_ycm_diags = 1
 
 let g:ycm_key_invoke_completion = '<C-a>'
+
+let g:ycm_complete_in_comments = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " }}}
 
 " Ultisnips settings----------- {{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsListSnippets="<c-h>"
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
-" let g:UltiSnipsSnippetDirectories=["~/ultisnips", "UltiSnips"]
+let g:UltiSnipsListSnippets='<c-l>'
+let g:UltiSnipsJumpForwardTrigger='<c-k>'
+let g:UltiSnipsJumpBackwardTrigger='<c-j>'
+let g:UltiSnipsExpandTrigger='<c-k>'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/bundle/vim-snippets/UltiSnips/']
+" let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 "" }}}
-"
+
 " -vimtex settings----------- {{{
 
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
-
+let g:tex_flavor="latex"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 "  " }}}
 

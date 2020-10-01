@@ -97,3 +97,9 @@
 [submodule ".vim/plugged/fzf.vim"]
 	path = .vim/plugged/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule ".vim/bundle/vimproc.vim"]
+	path = .vim/bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule ".vim/bundle/vim-vebugger.vim"]
+	path = .vim/bundle/vim-vebugger.vim
+	url = https://github.com/idanarye/vim-vebugger.git
