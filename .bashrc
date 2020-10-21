@@ -141,7 +141,7 @@ fo() {
 CLANG_INSTALL_DIR=/usr/lib/llvm-10/
 LLVM_INSTALL_DIR=/usr/lib/llvm-10/
 
+# some embedded remarks
+# using lm4flash
+export PATH=$PATH:$HOME/proggs/lm4tools/lm4flash
 
-### Setting some QtStylesheet via override
-export QT_STYLE_OVERRIDE=Adwaita:dark
-export GTK_THEME=Adwaita:dark

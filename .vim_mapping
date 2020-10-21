@@ -49,44 +49,8 @@ vno <right> <Nop>
 vno <up> <Nop>
 " }}}
 
-" better brackethandling, hacky" ----------- {{{
-" multiple keytrokes must be mapped for its own...
-"ö
-nnoremap ö [
-nnoremap öö [[
-"Ö
-nnoremap Ö {
-nnoremap ÖÖ {{
-"ä
-nnoremap ä ]
-nnoremap ää ]]
-"Ä
-nnoremap Ä }
-nnoremap ÄÄ }}
-" }}}
-
 " Tagbar----------- {{{
 nnoremap <F8> :TagbarToggle<CR>
-" }}}
-
-" Python----------- {{{
-" tut noch net so ganz...
-" run und debug line wäre auch noch cool
-" muss man das hier am besten in das python.vim ft snippet basteln, oder?!
-augroup python_cmds
-    autocmd!
-    " autocmd BufWritePost,FileType python :!black %
-    autocmd FileType python set autoread
-    autocmd FileType python     nnoremap <F5> :VBGcontinue<CR>
-    autocmd FileType python     nnoremap <C-F5> :VBGstartPDB3 %<CR>
-    autocmd FileType python     nnoremap <F6> :VBGstepOver<CR>
-    autocmd FileType python     nnoremap <C-F6> :VBGstepIn<CR>
-    autocmd FileType python     nnoremap <F7> :VBGtoggleBreakpointThisLine<CR>
-    autocmd FileType python     nnoremap <C-F7> :VBGstepOut<CR>
-    autocmd FileType python     nnoremap <C-F8> :VBGclearBreakpoints<CR>
-    autocmd FileType python     nnoremap <F9> :VBGevalSelectedText<CR>
-    autocmd FileType python     nnoremap <C-F9> :VBGevalWordUnderCursor<CR>
-augroup END
 " }}}
 
 " abbreviations, common----------- {{{
@@ -129,19 +93,10 @@ augroup filteype_vim
 augroup END
 " }}}
 
-" Rust----------- {{{
-let g:rustfmt_autosave = 1
-augroup rust_filetype
-    autocmd!
-    autocmd FileType rust nnoremap <F5> :!cargo run<CR>
-    autocmd FileType rust nnoremap <leader><F5> :!cargo test<CR>
-augroup END
-" }}}
-
 " Function Key mappings----------- {{{
 nnoremap <F2> :YcmCompleter GetDoc<CR>
 nnoremap <F3> :FZF<CR>
-nnoremap <C-F3> :Rg
+nnoremap <leader><F3> :Rg
 nnoremap <F4> :set relativenumber!<CR>
 " " }}}
 
