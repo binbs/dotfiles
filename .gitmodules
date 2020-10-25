@@ -103,3 +103,18 @@
 [submodule ".vim/bundle/vim-vebugger.vim"]
 	path = .vim/bundle/vim-vebugger.vim
 	url = https://github.com/idanarye/vim-vebugger.git
+[submodule ".vim/bundle/rust-doc"]
+	path = .vim/bundle/rust-doc
+	url = https://github.com/rhysd/rust-doc.vim.git
+[submodule ".vim/bundle/vim-ripgrep"]
+	path = .vim/bundle/vim-ripgrep
+	url = https://github.com/jremmen/vim-ripgrep.git
+[submodule ".vim/bundle/vim-slime"]
+	path = .vim/bundle/vim-slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule ".vim/bundle/vim-tmux-navigator"]
+	path = .vim/bundle/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule ".vim/bundle/vim-toml"]
+	path = .vim/bundle/vim-toml
+	url = https://github.com/cespare/vim-toml.git
