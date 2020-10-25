@@ -25,7 +25,7 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- https://github.com/Elv13/tyrannical
 local tyrannical = require("tyrannical")
--- local tyrannical = require("tyrannical.shortcut") -- optional
+-- local tyrannicalshortcuts = require("tyrannical.shortcut") -- optional
 -- }}}
 
 -- {{{ Error handling
@@ -255,60 +255,72 @@ end)
 -- }}}
 
 -- {{{ tyrannical tags
--- Ignore the tag "exclusive" property for the following clients (matched by classes)
---
-tyrannical.properties.intrusive = {
-    "ksnapshot"     , "pinentry"       , "gtksu"     , "kcalc"        , "xcalc"               ,
-    "feh"           , "Gradient editor", "About KDE" , "Paste Special", "Background color"    ,
-    "kcolorchooser" , "plasmoidviewer" , "Xephyr"    , "kruler"       , "plasmaengineexplorer",
-    "Terminator", "terminator", terminal,
-}
-
--- Ignore the tiled layout for the matching clients
-tyrannical.properties.floating = {
-    "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
-    "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
-    "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
-    "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer"
-}
-
--- Make the matching clients (by classes) on top of the default layout
-tyrannical.properties.ontop = {
-    "Xephyr"       , "ksnapshot"       , "kruler"
-}
 
 tyrannical.settings.no_autofocus = true --disable autofussifying things
+tyrannical.settings.no_focus_stealing_out = true -- Block switching tags when new window opens
 tyrannical.settings.no_focus_stealing_in = true -- Block switching tags when new window opens
 tyrannical.settings.block_children_focus_stealing = true --Block popups ()
 tyrannical.settings.group_children = true --Force popups/dialogs to have the same tags as the parent client
 tyrannical.settings.default_layout = awful.layout.suit.tile.right
 
+-- Ignore the tag "exclusive" property for the following clients (matched by classes)
+-- not wrking currently
+-- https://github.com/Elv13/tyrannical
+-- tyrannical.properties.intrusive = {
+--   "ksnapshot"     , "pinentry"       , "gtksu"     , "kcalc"        , "xcalc"               ,
+--   "feh"           , "Gradient editor", "About KDE" , "Paste Special", "Background color"    ,
+--   "kcolorchooser" , "plasmoidviewer" , "Xephyr"    , "kruler"       , "plasmaengineexplorer",
+-- }
+
+-- the intrusive property seems broken at the moment and i don't know how to fix it...
+tyrannical.properties.intrusive = {
+    terminal = true,
+    "Terminator",
+}
+
+-- -- Ignore the tiled layout for the matching clients
+-- tyrannical.properties.floating = {
+--     "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
+--     "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
+--     "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
+--     "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer"
+-- }
+
+-- Make the matching clients (by classes) on top of the default layout
+tyrannical.properties.ontop = {
+    "Xephyr"       , "ksnapshot"       , "kruler",
+}
+
 tyrannical.tags = {
+
     {
         name        = "main",                 -- Call the tag "Term"
         init        = true,                   -- Load the tag on startup
         exclusive   = false,                   -- Refuse any other type of clients (by classes)
+        selected    = true,
         screen      = {1,2},                  -- Create this tag on screen 1 and screen 2
-        -- fallback = true,
     } ,
+
     {
         name        = "www",
         init        = true,
         exclusive   = false,
         class = {
             "Opera"         , "Firefox"        , "Rekonq"    , "Dillo"        , "Arora",
-            "Chromium"      , "nightly"        , "minefield"    , "Vivaldi", terminal,
+            "Chromium"      , "nightly"        , "minefield"    , "Vivaldi",
         }
     } ,
+
     {
         name        = "rust",
         init        = true,
         exclusive   = true,
         screen      = 1,
         class  = {
-            "Firefox", "vim", "xed", terminal,
+            "Firefox", "vim", "xed",
         }
     } ,
+
     {
         name        = "vids",
         init        = false,
@@ -318,6 +330,7 @@ tyrannical.tags = {
             "XnViewMP", "vlc", "Chrome",
         }
     } ,
+
     {
         name        = "Bewerbungen",
         init        = true, -- This tag wont be created at startup, but will be when one of the
@@ -326,19 +339,21 @@ tyrannical.tags = {
         exclusive   = false,
         class       = {
             "Assistant"     , "Okular"         , "Evince"    , "EPDFviewer"   , "xpdf",
-            "Xpdf"          ,                                        terminal,
+            "Xpdf"          ,
         }
     } ,
+
     {
         name        = "COM",
         init = true,
         exclusive = true,
         class = {
-            "evolution", "irssi",
+            "evolution", "irssi","Fractal",
         },
         instance = { "/usr/bin/irssi" },
         properties = {tags = "COM"}
     },
+
     {
         name = "notes",
         init = true,
@@ -347,22 +362,19 @@ tyrannical.tags = {
             "keepnote", "keepassxc", "Keepnote",
         }
     }
-}
 
-
--- Force the matching clients (by classes) to be centered on the screen on init
-tyrannical.properties.placement = {
-    kcalc = awful.placement.centered
 }
 
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+
+-- root.buttons(gears.table.join(
+--     awful.button({ }, 3, function () mymainmenu:toggle() end),
+--     awful.button({ }, 4, awful.tag.viewnext),
+--     awful.button({ }, 5, awful.tag.viewprev)
+-- ))
+
 -- }}}
 
 -- {{{ Key bindings
@@ -395,7 +407,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.spawn(
         terminal,
         {
-            tags=awful.screen.focused().selected_tag
+            tags=awful.screen.focused().selected_tag, intrusive=true, slave=true
         })
     end,
               {description = "open a terminal", group = "launcher"}),
@@ -607,64 +619,79 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = false,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     maximized = false
+      properties = {
+          border_width = beautiful.border_width,
+          border_color = beautiful.border_normal,
+          focus = awful.client.focus.filter,
+          raise = false,
+          keys = clientkeys,
+          buttons = clientbuttons,
+          screen = awful.screen.preferred,
+          placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+          maximized = false,
+          floating = false,
+          sticky = false,
      }
     },
 
     -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-          "pinentry",
-        },
-        class = {
-          "Arandr",
-          "Blueman-manager",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-          "Wpa_gui",
-          "veromix",
-          "xtightvncviewer"},
-
-        -- Note that the name property shown in xprop might be set slightly after creation of the client
-        -- and the name shown there might not match defined rules here.
-        name = {
-          "Event Tester",  -- xev.
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
+    -- { rule_any = {
+      --   instance = {
+      --     "DTA",  -- Firefox addon DownThemAll.
+      --     "copyq",  -- Includes session name in class.
+      --     "pinentry",
+      --   },
+      --   class = {
+      --     "Arandr",
+      --     "Blueman-manager",
+      --     "Gpick",
+      --     "Kruler",
+      --     "MessageWin",  -- kalarm.
+      --     "Sxiv",
+      --     "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+      --     "Wpa_gui",
+      --     "veromix",
+      --     "xtightvncviewer"
+      -- },
+      --
+      --   -- Note that the name property shown in xprop might be set
+      --   -- slightly after creation of the client
+      --   -- and the name shown there might not match defined rules here.
+      --   name = {
+      --     "Event Tester",  -- xev.
+      --   },
+      --   role = {
+      --     "AlarmWindow",  -- Thunderbird's calendar.
+      --     "ConfigManager",  -- Thunderbird's about:config.
+      --     "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+      --   }
+      -- },
+      -- properties = { floating = true }
+  -- },
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" } },
+    {
+        rule_any = { type = { "normal", "dialog" } },
         properties = { titlebars_enabled = true }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
-    { rule = { class = "Keepnote" },
+    -- {
+    --     rule_any = { class = { "Terminator", terminal } },
+    --     properties = { ontop = false, intrusive = true }
+    -- },
+
+    {
+        rule_any = { class = { "Keepnote" } },
         properties = {tag = "notes", sticky = false }
     },
-    { rule = {name = "IRSSI" },
+
+    {
+        rule_any = { name = {  "IRSSI", "Fractal" } },
         properties = {tag = "COM"}
     },
-    { rule = { class = "Nemo" },
+
+    {
+        rule_any = { class = { "Nemo" } },
         properties = { floating = false }
     },
 }
@@ -743,11 +770,13 @@ autorunApps =
     -- also integrate gnome-keyring with PAM
     "keepassxc",
     "keepnote",
+    "flatpak run org.gnome.Fractal",
     "gtk-redshift",
     "firefox",
     "evolution",
     "terminator -T IRSSI -x irssi ",
 }
+
 if autorun then
     for app = 1, #autorunApps do
         awful.util.spawn(autorunApps[app])
