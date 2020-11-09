@@ -274,7 +274,7 @@ tyrannical.settings.default_layout = awful.layout.suit.tile.right
 
 -- the intrusive property seems broken at the moment and i don't know how to fix it...
 tyrannical.properties.intrusive = {
-    terminal = true,
+    -- terminal = true,
     "Terminator",
 }
 
@@ -298,7 +298,7 @@ tyrannical.tags = {
         init        = true,                   -- Load the tag on startup
         exclusive   = false,                   -- Refuse any other type of clients (by classes)
         selected    = true,
-        screen      = {1,2},                  -- Create this tag on screen 1 and screen 2
+        screen      = 2, -- {1,2},                  -- Create this tag on screen 1 and screen 2
     } ,
 
     {
@@ -439,8 +439,14 @@ globalkeys = gears.table.join(
               {description = "select previous", group = "layout"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey },            "r",     function ()
+                        awful.spawn("dmenu_run")
+                end,
               {description = "run prompt", group = "launcher"}),
+    -- awful.key({ modkey, "Control" },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --           {description = "run in current tag", group = "launcher"}),
+    -- awful.key({ modkey, "Shift" }, "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --           {description = "run in new tag", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -616,6 +622,7 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
+
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -670,10 +677,10 @@ awful.rules.rules = {
   -- },
 
     -- Add titlebars to normal clients and dialogs
-    {
-        rule_any = { type = { "normal", "dialog" } },
-        properties = { titlebars_enabled = true }
-    },
+    -- {
+    --     rule_any = { type = { "normal", "dialog" } },
+    --     properties = { titlebars_enabled = true }
+    -- },
 
     -- {
     --     rule_any = { class = { "Terminator", terminal } },
@@ -694,7 +701,8 @@ awful.rules.rules = {
         rule_any = { class = { "Nemo" } },
         properties = { floating = false }
     },
-}
+  }
+
 -- }}}
 
 -- {{{ Signals
@@ -775,6 +783,7 @@ autorunApps =
     "firefox",
     "evolution",
     "terminator -T IRSSI -x irssi ",
+    "numlockx on",
 }
 
 if autorun then

@@ -1,6 +1,6 @@
 #!/bin/sh
 ## settings loaded by lightdm
 ### Setting some QtStylesheet via override
-export QT_STYLE_OVERRIDE=Adwaita:dark
+export QT_STYLE_OVERRIDE=Adwaita-dark
 export GTK_THEME=Adwaita:dark
 

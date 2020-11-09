@@ -285,5 +285,7 @@ endif
 " Termdebugger----------- {{{
 " These settings are very project-local and need to be highly customized for
 " :Termdebug...
-" let termdebugger = ""
+let termdebugger = "gdb-multiarch -x ~/rust_projects/app/openocd.gdb"
+let g:termdebug_popup = 0
+let g:termdebug_wide = 163
 
