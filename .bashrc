@@ -128,3 +128,5 @@ if [ -f ~/.local/bin/virtualenvwrapper.sh ]; then
 fi
 
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
