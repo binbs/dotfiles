@@ -377,6 +377,60 @@ tyrannical.tags = {
 
 -- }}}
 
+-- {{{ Tags handling bindings
+local function delete_tag()
+    local t = awful.screen.focused().selected_tag
+    if not t then return end
+    t:delete()
+end
+
+local function add_tag()
+    awful.tag.add("NewTag", {
+        screen = awful.screen.focused(),
+        layout = awful.layout.suit.floating }):view_only()
+end
+
+local function rename_tag()
+    awful.prompt.run {
+        prompt       = "New tag name: ",
+        textbox      = awful.screen.focused().mypromptbox.widget,
+        exe_callback = function(new_name)
+            if not new_name or #new_name == 0 then return end
+
+            local t = awful.screen.focused().selected_tag
+            if t then
+                t.name = new_name
+            end
+        end
+    }
+end
+
+local function move_to_new_tag()
+    local c = client.focus
+    if not c then return end
+
+    local t = awful.tag.add(c.class,{
+        screen= c.screen,
+        selected=true,
+        layout = awful.layout.suit.tile.left,
+        volatile = true
+    })
+    c:tags({t})
+    t:view_only()
+end
+
+local function copy_tag()
+    local t = awful.screen.focused().selected_tag
+    if not t then return end
+
+    local clients = t:clients()
+    local t2 = awful.tag.add(t.name, awful.tag.getdata(t))
+    t2:clients(clients)
+    t2:view_only()
+end
+
+-- }}}
+
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     -- awesome commands
@@ -390,12 +444,14 @@ globalkeys = gears.table.join(
               {description = "quit awesome", group = "awesome"}),
 
     -- tagging commands
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey,   "Control"        }, "h",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,   "Control"                }, "l",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+    awful.key({modkey, "Shift"       }, "n", move_to_new_tag,
+            {description = "move currently selected client to new tag", group="tag"}),
 
     -- move between screens
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
@@ -427,12 +483,12 @@ globalkeys = gears.table.join(
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
-              {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
-              {description = "decrease the number of columns", group = "layout"}),
+    -- awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
+    --           {description = "decrease the number of master clients", group = "layout"}),
+    -- awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
+    --           {description = "increase the number of columns", group = "layout"}),
+    -- awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
+              -- {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
@@ -770,7 +826,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autorun programs{{{
-autorun = true
+-- autorun = true
 autorunApps =
 {
     -- Getting display right
@@ -784,6 +840,8 @@ autorunApps =
     "evolution",
     "terminator -T IRSSI -x irssi ",
     "numlockx on",
+    "nm-applet",
+    "owncloud",
 }
 
 if autorun then
