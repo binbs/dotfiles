@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'mhinz/vim-startify'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
  " }}}
 
@@ -180,6 +181,10 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " }}}
 
+" coc.vim ----------- {{{
+
+" }}}
+
 " Some autocommands...----------- {{{
 
 " highlight 'long' lines (>= 80 symbols) in python files
@@ -236,10 +241,20 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_open_loclist_on_ycm_diags = 1
 
 let g:ycm_key_invoke_completion = '<C-a>'
-
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-a>', '<Up>']
 let g:ycm_complete_in_comments = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_language_server =
+\ [
+\   {
+\     'name': 'rust',
+\     'cmdline': ['rust-analyzer'],
+\     'filetypes': ['rust'],
+\     'project_root_files': ['Cargo.toml']
+\   }
+\ ]
 " }}}
 
 " Ultisnips settings----------- {{{
