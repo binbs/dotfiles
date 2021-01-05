@@ -4,28 +4,49 @@
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
+local gears                = require("gears")
+local awful                = require("awful")
+
+-- for awesomewm cli
+require("awful.remote")
 require("awful.autofocus")
+
 -- Widget and layout library
-local wibox = require("wibox")
+local wibox                = require("wibox")
+
 -- Theme handling library
-local beautiful = require("beautiful")
+local beautiful            = require("beautiful")
+
 -- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
+local naughty              = require("naughty")
+local menubar              = require("menubar")
+local hotkeys_popup        = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
 -- Load Debian menu entries
-local debian = require("debian.menu")
+local debian               = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+-- logout widget
+local logout               = require("awesome-wm-widgets.logout-popup-widget.logout-popup")
+
+-- pomodoro arc widget
+local pomodoro = require("awesome-wm-widgets.pomodoroarc-widget.pomodoroarc")
 -- https://github.com/Elv13/tyrannical
 local tyrannical = require("tyrannical")
 -- local tyrannicalshortcuts = require("tyrannical.shortcut") -- optional
+-- }}}
+
+-- logout widget {{{
+logout_args  = {
+    -- bg_color = "#261447", accent_color = "#ff4365", text_color = '#f706cf', icon_size = 40, icon_margin = 16, -- outrun
+    bg_color = "#0b0c10"  , accent_color = "#1f2833"      , text_color = '#66fce1' , -- dark
+    -- bg_color = "#3B4252", accent_color = "#88C0D0", text_color = '#D8DEE9', -- nord
+    -- bg_color = "#282a36", accent_color = "#ff79c6", phrases = {}, -- dracula, no phrase
+    phrases  = {"exit(0)" , "Don't forget to be awesome." , "Yippee ki yay!"}      ,
+}
 -- }}}
 
 -- {{{ Error handling
@@ -198,14 +219,6 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    -- use tyrannical tags
-    -- local names = { "main", "www", "rust", "vids", "bewerbungen", "office", "7", "8", "9" }
-    -- local l = awful.layout.suit -- Just to save typing
-    -- local layouts = {l.tile.left, l.tile, l.tile, l.tile, l.tile.left, l.fair, l.fair, l.fair}
-    -- awful.tag(names, s, layouts)
-
-
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -216,6 +229,7 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -246,6 +260,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
+            pomodoro,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -433,6 +448,13 @@ end
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+
+    -- logout/system keys
+      awful.key({ modkey }, "g", function() logout.launch(logout_args) end,
+              {description = "Show logout screen", group = "system"}),
+      awful.key({ modkey , "Control"}, "s", function() awful.spawn("cinnamon-settings sound") end,
+              {description = "show sound settings", group = "system"}),
+
     -- awesome commands
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -493,6 +515,11 @@ globalkeys = gears.table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+    -- note taking zeug
+      awful.key({ modkey }, "v", function()
+          awful.spawn("terminator -T QuickNotes -x notetaker")
+      end,
+      {description = "Launch Notetaking from within vim", group = "launcher"}),
 
     -- Prompt
     awful.key({ modkey },            "r",     function ()
@@ -742,10 +769,26 @@ awful.rules.rules = {
     --     rule_any = { class = { "Terminator", terminal } },
     --     properties = { ontop = false, intrusive = true }
     -- },
+    {
+        rule_any = { name = { "QuickNotes" } },
+        properties = {
+            floating = true,
+            sticky = true,
+            ontop = true,
+            width = 900,
+            height = 450,
+            placement = awful.placement.centered,
+        }
+    },
 
     {
         rule_any = { class = { "Keepnote" } },
         properties = {tag = "notes", sticky = false }
+    },
+
+    {
+        rule_any = { class = { "QOwnNotes" } },
+        properties = {tag = "notes"}
     },
 
     {
@@ -826,14 +869,15 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autorun programs{{{
--- autorun = true
+-- autorun = false
+autorun = true
 autorunApps =
 {
     -- Getting display right
     "xrandr --output DVI-D-0 --left-of HDMI-A-0",
     -- also integrate gnome-keyring with PAM
     "keepassxc",
-    "keepnote",
+    -- "keepnote",
     "flatpak run org.gnome.Fractal",
     "gtk-redshift",
     "firefox",
@@ -842,6 +886,7 @@ autorunApps =
     "numlockx on",
     "nm-applet",
     "owncloud",
+    "QOwnNotes",
 }
 
 if autorun then

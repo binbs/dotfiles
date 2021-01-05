@@ -51,8 +51,6 @@ set guifont=mononoki\ Nerd\ Font\ 18
 let g:airline_theme='minimalist'                " set airline theme
 let g:airline_powerline_fonts = 1
 
-source ~/.vim_mapping
-
 set shell=/bin/bash
 
 set number relativenumber
@@ -181,7 +179,9 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " }}}
 
-" coc.vim ----------- {{{
+" JuneGunn.EasyAlign ----------- {{{
+xmap     ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " }}}
 
@@ -233,8 +233,9 @@ nnoremap <leader>R :YcmCompleter RefactorRename<CR>
 nnoremap <localleader>r :YcmCompleter RestartServer<CR>
 "toggle hints, use nmap instead of nnoremap when using plug
 nmap <leader>D <plug>(YCMHover)
+"
 "always use the recommended parameters for rls completer...
-let g:ycm_extra_conf_globlist = ["~/rust_projects/*"]
+let g:ycm_extra_conf_globlist = [$HOME."/rust_projects/*"]
 let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_always_populate_location_list = 1
@@ -260,10 +261,10 @@ let g:ycm_language_server =
 " Ultisnips settings----------- {{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsListSnippets='<c-l>'
-let g:UltiSnipsJumpForwardTrigger='<c-k>'
-let g:UltiSnipsJumpBackwardTrigger='<c-j>'
-let g:UltiSnipsExpandTrigger='<c-k>'
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/bundle/vim-snippets/UltiSnips/']
+let g:UltiSnipsJumpForwardTrigger='<c-w>'
+let g:UltiSnipsJumpBackwardTrigger='<c-q>'
+let g:UltiSnipsExpandTrigger='<c-w>'
+let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/bundle/vim-snippets/UltiSnips/"]
 " let g:UltiSnipsSnippetDirectories=['UltiSnips']
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
@@ -303,4 +304,146 @@ endif
 let termdebugger = "gdb-multiarch -x ~/rust_projects/app/openocd.gdb"
 let g:termdebug_popup = 0
 let g:termdebug_wide = 163
+" }}}
 
+" leader keys----------- {{{
+let mapleader=","
+let maplocalleader=",,"
+" }}}
+
+" adding a semicolon to the end of the line
+nnoremap <leader>; :execute "normal! mqA;\e`q"<CR>
+
+" Grep Helper----------- {{{
+" This one greps for the cWORD under Cursor...
+"nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
+nnoremap <leader>h :cprevious<CR>
+nnoremap <leader>l :cnext<CR>
+" }}}
+
+" vimrc management----------- {{{
+nnoremap <leader>ev     :vs $MYVIMRC<CR>
+nnoremap <leader>sv     :source $MYVIMRC<CR>
+" }}}
+
+" spacebar folding----------- {{{
+nnoremap <space>        za
+" }}}
+
+" put esc on jk----------- {{{
+vnoremap jk  <ESC>
+vnoremap <ESC> <nop>
+inoremap jk  <ESC>
+inoremap <ESC> <nop>
+" }}}
+
+" remap motion----------- {{{
+no <down> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+no <up> <Nop>
+
+ino <down> <Nop>
+ino <left> <Nop>
+ino <right> <Nop>
+ino <up> <Nop>
+
+vno <down> <Nop>
+vno <left> <Nop>
+vno <right> <Nop>
+vno <up> <Nop>
+" }}}
+
+" Tagbar----------- {{{
+nnoremap <F8> :TagbarToggle<CR>
+" }}}
+
+" abbreviations, common----------- {{{
+iabbrev oweb oliver.schwanke@web.de
+iabbrev twipweb    schwanke@twip-os.com
+iabbrev tehn then
+iabbrev tahn than
+iabbrev adn and
+iabbrev waht what
+iabbrev isntall install
+" }}}
+
+" operator remapping" ----------- {{{
+" parenthesis
+onoremap p i(
+" delete function body
+onoremap b /return<CR>
+" change contents of next parenthesis(
+onoremap in( :<c-u>normal! f(vi(<CR>
+" change contents of last parenthesis
+onoremap il( :<c-u>normal! F)vi(<CR>
+" change including parenthesis
+onoremap an( :<c-u>normal! f(va(<CR>
+onoremap an( :<c-u>normal! F(va(<CR>
+" change inside curly braces
+onoremap in{ :<c-u>normal! f{vi{<CR>
+onoremap il{ :<c-u>normal! F{vi{<CR>
+" change including curly braces
+onoremap an{ :<c-u>normal! f{va{<CR>
+onoremap al{ :<c-u>normal! F{va{<CR>
+
+inoremap <leader>l <c-g>u<ESC>[s1z=`]a<c-g>u
+" check omap-info for details
+" " }}}
+
+" Vimscript filetype settings -------------------- {{{
+augroup filteype_vim
+    autocmd!
+    autocmd FileType vim nnoremap --- O" ----------- {{{<ESC>0la
+    autocmd FileType vim nnoremap ___ o" }}}<ESC>
+    autocmd FileType lua,vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" Function Key mappings----------- {{{
+nnoremap <F3> :FZF<CR>
+nnoremap <leader><F3> :Rg<space>
+nnoremap <F4> :set relativenumber!<CR>
+" " }}}
+
+" Buffer Management----------- {{{
+set wildmode=list:full
+set wildignorecase
+set wildignore=*.swp,*.bak
+set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
+set wildignore+=tags
+set wildignore+=*.tar.*
+set wildcharm=<C-z>
+" This one opens a tabbable list to scroll through open buffers
+
+nnoremap <leader>b :buffer <C-z><S-Tab>
+nnoremap <leader>B :vs <C-z><S-Tab>
+" nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap <leader>l :bn<CR>
+nnoremap <leader>h :bn<CR>
+
+set path=.,**
+nnoremap <localleader>f :find *
+nnoremap <localleader>s :sfind *
+nnoremap <localleader>v :vert sfind *
+nnoremap <localleader>t :tabfind *
+
+nnoremap <leader>F: find <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>S: sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>V: vert sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>T: tabfind <C-R>=expand('%:h').'/*'<CR>
+
+" This sets marks to jump back to the last modified file
+" with given filename/Ending
+
+augroup automarks
+  autocmd!
+  autocmd BufLeave *.cpp  normal! mC
+  autocmd BufLeave *.h normal! mH
+  autocmd BufLeave *.rs   normal! mR
+  autocmd BufLeave *.py  normal! mP
+augroup END
+
+" new vertical split can be opened using ctrl-w t
+" }}}
