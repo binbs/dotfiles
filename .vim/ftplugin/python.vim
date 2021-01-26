@@ -8,15 +8,6 @@ autocmd!
     autocmd BufWritePost,FileType python :!black %
 augroup END
 
-nnoremap <buffer> <F5> :VBGcontinue<CR>
-nnoremap <buffer> <C-F5> :VBGstartPDB3 %<CR>
-nnoremap <buffer> <F6> :VBGstepOver<CR>
-nnoremap <buffer> <C-F6> :VBGstepIn<CR>
-nnoremap <buffer> <F7> :VBGtoggleBreakpointThisLine<CR>
-nnoremap <buffer> <C-F7> :VBGstepOut<CR>
-nnoremap <buffer> <C-F8> :VBGclearBreakpoints<CR>
-nnoremap <buffer> <F9> :VBGevalSelectedText<CR>
-nnoremap <buffer> <C-F9> :VBGevalWordUnderCursor<CR>
 " }}}"
 
 " vim-slime mappings----------- {{{

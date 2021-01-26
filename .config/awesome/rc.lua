@@ -33,7 +33,7 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 local logout               = require("awesome-wm-widgets.logout-popup-widget.logout-popup")
 
 -- pomodoro arc widget
-local pomodoro = require("awesome-wm-widgets.pomodoroarc-widget.pomodoroarc")
+-- local pomodoro = require("awesome-wm-widgets.pomodoroarc-widget.pomodoroarc")
 -- https://github.com/Elv13/tyrannical
 local tyrannical = require("tyrannical")
 -- local tyrannicalshortcuts = require("tyrannical.shortcut") -- optional
@@ -260,7 +260,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-            pomodoro,
+            -- pomodoro,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -288,10 +288,9 @@ tyrannical.settings.default_layout = awful.layout.suit.tile.right
 -- }
 
 -- the intrusive property seems broken at the moment and i don't know how to fix it...
-tyrannical.properties.intrusive = {
+-- tyrannical.properties.intrusive = {
     -- terminal = true,
-    "Terminator",
-}
+-- }
 
 -- -- Ignore the tiled layout for the matching clients
 -- tyrannical.properties.floating = {
@@ -483,10 +482,8 @@ globalkeys = gears.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(
-        terminal,
-        {
-            tags=awful.screen.focused().selected_tag, intrusive=true, slave=true
-        })
+        terminal
+        )
     end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(file_explorer) end,
@@ -882,11 +879,12 @@ autorunApps =
     "gtk-redshift",
     "firefox",
     "evolution",
-    "terminator -T IRSSI -x irssi ",
+    -- "terminator -T IRSSI -x irssi ",
     "numlockx on",
     "nm-applet",
     "owncloud",
     "QOwnNotes",
+    "blueman-applet",
 }
 
 if autorun then

@@ -29,6 +29,11 @@ syntax on
 filetype plugin indent on
 set autoread
 
+" leader keys----------- {{{
+let mapleader=","
+let maplocalleader=",,"
+" }}}
+
 set nocompatible              " required
 set hidden
 " disabled in favor of ctrl-space
@@ -39,9 +44,6 @@ set ignorecase "required for smartcase
 set smartcase
 set conceallevel=0 "usefful for latex, hides $ signs and such things...
 
-if filereadable(expand("~/.vimrc_background"))
-  source ~/.vimrc_background
-endif
 set encoding=utf-8
 set t_Co=256                                " 256 colors
 colorscheme wombat256mod
@@ -86,19 +88,6 @@ set scrolloff=10                            " let 10 lines before/after cursor d
 
 set clipboard=unnamed                       " use system clipboard
 
-" set exrc                                    " enable usage of additional .vimrc files from working directory
-" set secure                                  " prohibit .vimrc files to execute shell, create files, etc...
-
-" this is from some thoughtbot tutorial and resizes the currently active
-" 'window' to be as large as possible
-" set winwidth=84
-" set winheight=5
-" set winminheight=5
-" set winheight=999
-"
-" " some tab mod...
-" tab sball
-" some ...tab modifier. not sure what this does
 " set switchbuf=useopen
 " always have statusbar
 set laststatus=2
@@ -173,14 +162,14 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = { 'c': { 'left': '/*/','right': '/*/' } }
 
 " Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
+let g:NERDCommentEmptyLines = 0
 
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 " }}}
 
 " JuneGunn.EasyAlign ----------- {{{
-xmap     ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " }}}
@@ -222,7 +211,7 @@ augroup END
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 nnoremap <leader>G :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>D :YcmCompleter GoToImplementation<CR>
+" nnoremap <leader>D :YcmCompleter GoToImplementation<CR>
 nnoremap <leader>j :YcmCompleter GoToReferences<CR>
 nnoremap <leader>f :YcmCompleter FixIt<CR>
 nnoremap <leader>F :YcmDiag<CR>
@@ -273,9 +262,9 @@ let g:UltiSnipsEditSplit='vertical'
 " Slime Settings ----------- {{{
 " this one is helpful for ssh sessions and such, keybindings for
 " tmus start with <C-b>; a vert split is '%' a hor split is '"' for example
-" let g:slime_target = 'tmux'
-" let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{last}'}
-let g:slime_target = 'vimterminal'
+let g:slime_target = 'tmux'
+let g:slime_default_config = {'socket_name': 'default', 'target_pane': '{last}'}
+" let g:slime_target = 'vimterminal'
 " let g:slime_vimterminal_config = {options}
 " let g:slime_vimterminal_cmd = 'command'
 " put the delimiter  parts in the corresponding ftplugin
@@ -306,20 +295,8 @@ let g:termdebug_popup = 0
 let g:termdebug_wide = 163
 " }}}
 
-" leader keys----------- {{{
-let mapleader=","
-let maplocalleader=",,"
-" }}}
-
 " adding a semicolon to the end of the line
 nnoremap <leader>; :execute "normal! mqA;\e`q"<CR>
-
-" Grep Helper----------- {{{
-" This one greps for the cWORD under Cursor...
-"nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
-nnoremap <leader>h :cprevious<CR>
-nnoremap <leader>l :cnext<CR>
-" }}}
 
 " vimrc management----------- {{{
 nnoremap <leader>ev     :vs $MYVIMRC<CR>
@@ -391,15 +368,6 @@ inoremap <leader>l <c-g>u<ESC>[s1z=`]a<c-g>u
 " check omap-info for details
 " " }}}
 
-" Vimscript filetype settings -------------------- {{{
-augroup filteype_vim
-    autocmd!
-    autocmd FileType vim nnoremap --- O" ----------- {{{<ESC>0la
-    autocmd FileType vim nnoremap ___ o" }}}<ESC>
-    autocmd FileType lua,vim setlocal foldmethod=marker
-augroup END
-" }}}
-
 " Function Key mappings----------- {{{
 nnoremap <F3> :FZF<CR>
 nnoremap <leader><F3> :Rg<space>
@@ -420,8 +388,8 @@ set wildcharm=<C-z>
 nnoremap <leader>b :buffer <C-z><S-Tab>
 nnoremap <leader>B :vs <C-z><S-Tab>
 " nnoremap <leader>b :ls<CR>:b<Space>
-nnoremap <leader>l :bn<CR>
-nnoremap <leader>h :bn<CR>
+" nnoremap <leader>l :bn<CR>
+" nnoremap <leader>h :bn<CR>
 
 set path=.,**
 nnoremap <localleader>f :find *
@@ -447,3 +415,15 @@ augroup END
 
 " new vertical split can be opened using ctrl-w t
 " }}}
+
+" Vimscript filetype settings -------------------- {{{
+augroup filteype_vim
+    autocmd FileType lua setlocal foldmethod=marker
+augroup END
+" }}}
+
+" vimspector----------- {{{
+" let g:vimspector_enable_mappings = 'HUMAN'
+" }}}
+
+
