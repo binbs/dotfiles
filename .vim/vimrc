@@ -201,7 +201,7 @@ augroup vimrc_autocmds
     " Start with startify as startscreen and NERDTree
     " when not directly opening some file
     autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | Startify | endif
-    autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
+    " autocmd VimEnter * nested if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
 
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
@@ -245,6 +245,7 @@ let g:ycm_language_server =
 \     'project_root_files': ['Cargo.toml']
 \   }
 \ ]
+let g:ycm_filetype_blacklist = {}
 " }}}
 
 " Ultisnips settings----------- {{{
@@ -425,5 +426,46 @@ augroup END
 " vimspector----------- {{{
 " let g:vimspector_enable_mappings = 'HUMAN'
 " }}}
+
+" vimwiki----------- {{{
+function! VimwikiFindIncompleteTasks()
+    lvimgrep /- \[ \]/ %:p
+    lopen
+endfunction
+
+function! VimwikiFindAllIncompleteTasks()
+    VimwikiSearch /- \[ \]/
+    lopen
+endfunction
+
+nmap <Leader>wa :call VimwikiFindAllIncompleteTasks()<CR>
+nmap <Leader>wx :call VimwikiFindIncompleteTasks()<CR>
+
+let g:vimwiki_list = [{'path' : '~/ownCloud/Notes/', 'syntax' : 'markdown', 'ext': '.md'}]
+" Only treat md within the NOtes folder as vimwikifiles
+let g:vimwiki_global_ext = 0
+"
+" disable tab mappigns for vimwiki
+let g:vimwiki_table_mappings=0
+function! VimwikiLinkHandler(link)
+    " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+    "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+    "   2) [[vfile:./|Wiki Home]]
+    let link = a:link
+    if link =~# '^vfile:'
+        let link = link[1:]
+    else
+        return 0
+    endif
+    let link_infos = vimwiki#base#resolve_link(link)
+    if link_infos.filename == ''
+        echomsg 'Vimwiki Error: Unable to resolve link!'
+        return 0
+    else
+        exe 'edit ' . fnameescape(link_infos.filename)
+        return 1
+    endif
+endfunction
+" " }}}
 
 
