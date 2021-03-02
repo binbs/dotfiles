@@ -90,7 +90,7 @@ fi
 #	cat <<-EOF
 #	To run a command as administrator (user "root"), use "sudo <command>".
 #	See "man sudo_root" for details.
-	
+
 #	EOF
 #    fi
 #    esac
@@ -132,3 +132,6 @@ source $HOME/.local/bin/virtualenvwrapper_lazy.sh
 export MANPATH=$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man
 export INFOPATH=$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/info
 export PATH=$PATH:/usr/local/texlive/2020/bin/i386-linux
+
+export LLVM_INSTALL_DIR=/usr/lib/llvm-9
+export PATH=$PATH:$HOME/proggs/owncloud-client/build/bin/
