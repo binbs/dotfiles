@@ -28,7 +28,7 @@ call pathogen#helptags()
 syntax on
 filetype plugin indent on
 set autoread
-
+set autochdir " make current file's directory current working directory
 " leader keys----------- {{{
 let mapleader=","
 let maplocalleader=",,"
@@ -337,8 +337,6 @@ nnoremap <F8> :TagbarToggle<CR>
 " }}}
 
 " abbreviations, common----------- {{{
-iabbrev oweb oliver.schwanke@web.de
-iabbrev twipweb    schwanke@twip-os.com
 iabbrev tehn then
 iabbrev tahn than
 iabbrev adn and
@@ -425,6 +423,30 @@ augroup END
 
 " vimspector----------- {{{
 " let g:vimspector_enable_mappings = 'HUMAN'
+
+" These are the possible vimspector keymappings
+" Human binds them to the F-Keys(somewhat opinionated...)
+" This makes the mouse work on the Winbar which pops up on starting vimspector
+set mouse=a
+
+nmap <F5> <Plug>VimspectorContinue
+nmap <leader><F5> <Plug>VimspectorRestart
+
+nmap <F6> <Plug>VimspectorPause
+nmap <leader><F6> <Plug>VimspectorStop
+
+nmap <leader><F7> :VimspectorReset<CR>
+
+nmap <F9> <Plug>VimspectorToggleBreakpoint
+nmap <leader><F9> <Plug>VimspectorToggleConditionalBreakpoint
+" <Plug>VimspectorAddFunctionBreakpoint
+nmap <F10> <Plug>VimspectorStepOver
+nmap <leader><F10> <Plug>VimspectorStepInto
+nmap <F12> <Plug>VimspectorStepOut
+nmap <leader><F12> <Plug>VimspectorRunToCursor
+"this is for autocompletion in watch window
+let g:ycm_semantic_triggers =  {
+  \   'VimspectorPrompt': [ '.', '->', ':', '<' ] }
 " }}}
 
 " vimwiki----------- {{{

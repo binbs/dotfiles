@@ -18,14 +18,14 @@ nmap <buffer> <leader>s <Plug>SlimeSendCell
 " Python-mode settings" ----------- {{{
 " python executables for different plugins
 " pymode settings
-let g:pymode = 1
+let g:pymode = 0
 let g:pymode_warnings = 1
 " let g:pymode_paths = []
 "trim whitespace on save
 let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
 let g:pymode_python='python3'
-let g:pymode_options_max_line_length = 87
+let g:pymode_options_max_line_length = 88
 " ====  ============================
 " Key   Command
 " ====  ============================
@@ -59,11 +59,11 @@ let g:pymode_doc_bind='K'
 let g:pymode_virtualenv=1
 
 " code running
-let g:pymode_run=1
+let g:pymode_run=0
 let g:pymode_run_bind='<leader>r'
 
 " breakpoints
-let g:pymode_breakpoint=1
+let g:pymode_breakpoint=0
 let g:pymode_breakpoint_key='<leader>b'
 
 " lints
@@ -88,7 +88,7 @@ let g:pymode_lint_pyflakes_symbol = 'FF'
 
 " syntax highlight
 let g:pymode_syntax=1
-let g:pymode_syntax_slow_sync=0
+let g:pymode_syntax_slow_sync=1
 let g:pymode_syntax_all=1
 
 " rope
