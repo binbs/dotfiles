@@ -80,7 +80,7 @@ end
 beautiful.init("/home/olli/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminator"
+terminal = "alacritty"
 file_explorer = "nemo"
 alternate_file_browser = "sunflower"
 internet_browser = "firefox"
@@ -883,7 +883,7 @@ autorunApps =
     "numlockx on",
     "nm-applet",
     "owncloud",
-    "QOwnNotes",
+    -- "QOwnNotes",
     "blueman-applet",
 }
 

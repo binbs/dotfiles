@@ -145,3 +145,5 @@ LLVM_INSTALL_DIR=/usr/lib/llvm-10/
 # using lm4flash
 export PATH=$PATH:$HOME/proggs/lm4tools/lm4flash
 
+# completion for alacritty
+source /home/olli/proggs/alacritty/extra/completions/alacritty.bash
