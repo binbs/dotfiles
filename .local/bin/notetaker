@@ -1,0 +1,16 @@
+#!/bin/sh
+
+noteFile="note-$(date +%Y-%m-%d)"
+noteFilename="$HOME/ownCloud/Notes/quick/$noteFile.md"
+
+if [ ! -f $noteFilename ]; then
+    echo "# $noteFile" > $noteFilename
+fi
+
+vim \
+    -c "norm Go"\
+    -c "norm Go## $(date +%H:%M)" \
+    -c "norm G2o" \
+    -c "norm zz" \
+    $noteFilename
+
