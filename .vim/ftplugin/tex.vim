@@ -1,3 +1,9 @@
+" this one enables completion from dictionary using <C-x><C-n>
+setlocal spell
+setlocal spelllang=de,en
+setlocal complete+=k
+setlocal dictionary+=/usr/share/dict/words
+
 " Tabularize settings, plus the tpope function for tabularize" ----------- {{{
 " this ffunction realigns on '|' every time it's typed into
 if exists(":Tabularize")

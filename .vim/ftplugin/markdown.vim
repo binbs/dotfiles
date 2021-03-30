@@ -1,4 +1,8 @@
 nmap <F5> <Plug>MarkdownPreviewToggle
+setlocal spell
+setlocal spelllang=de,en
+setlocal complete+=k
+setlocal dictionary+=/usr/share/dict/words
 
 " Tabularize----------- {{{
 " this ffunction realigns on '|' every time it's typed into

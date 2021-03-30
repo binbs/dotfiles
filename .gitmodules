@@ -133,3 +133,21 @@
 [submodule ".vim/plugged/coc.nvim"]
 	path = .vim/plugged/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
+[submodule ".vim/bundle/taskwiki"]
+	path = .vim/bundle/taskwiki
+	url = https://github.com/tools-life/taskwiki
+[submodule ".vim/bundle/vim-repeat"]
+	path = .vim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/bundle/vim-table-mode"]
+	path = .vim/bundle/vim-table-mode
+	url = https://github.com/dhruvasagar/vim-table-mode.git
+[submodule ".vim/bundle/vim-taskwarrior"]
+	path = .vim/bundle/vim-taskwarrior
+	url = https://github.com/farseer90718/vim-taskwarrior
+[submodule ".vim/bundle/vimwiki"]
+	path = .vim/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki
+[submodule ".vim/bundle/unimpaired"]
+	path = .vim/bundle/unimpaired
+	url = https://tpope.io/vim/unimpaired.git
