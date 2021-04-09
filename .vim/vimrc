@@ -9,18 +9,82 @@
 
 call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-plug'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-    Plug 'mhinz/vim-startify'
+
+    "Search Engines and File things
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+    Plug 'scrooloose/nerdtree'
+
+    " File Navigation
+    Plug 'majutsushi/tagbar'
+
+    " Python plugins
+    Plug 'python-mode/python-mode'
+
+    " Rust y plugins
+    Plug 'rhysd/rust-doc.vim'
+    Plug 'rust-lang/rust.vim'
+    Plug 'cespare/vim-toml'
+
+    " Tables and formatting
+    Plug 'dhruvasagar/vim-table-mode'
+    Plug 'junegunn/vim-easy-align'
+    Plug 'godlygeek/tabular'
+    "
+    " Completion and Debugging. Programming in general.
+" Commands to buildyoucompleteme:
+" git submodule update init -- recursive
+" python3 install.py --clangd-completer --rust-completer
+    Plug '~/.vim/plugged/YouCompleteMe'
+    Plug 'puremourning/vimspector'
+    "
+    " vim Candy
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'mhinz/vim-startify'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'thaerkh/vim-indentguides'
+
+    "tpope plugins
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
+    Plug 'https://tpope.io/vim/unimpaired'
+    Plug 'https://tpope.io/vim/fugitive'
+
+    " Text writing plugins
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    Plug 'lervag/vimtex'
+    Plug 'dbmrq/vim-ditto'
+
+    " Snippets and accelerators
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'reconquest/vim-pythonx'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'scrooloose/nerdcommenter'
+
+    " tmux
+    Plug 'jpalardy/vim-slime', {'branch':'main'}
+    Plug 'christoomey/vim-tmux-navigator'
+
+    " Notes.maybe add taskwarrior here again or so.
+    Plug 'vimwiki/vimwiki'
+
+
+
+
+
+
+
 call plug#end()
  " }}}
 
 " Pathogen ----------- {{{
 " FZF shadows the :Helptags, but it still can be done using
 " :call pathogen#helptags()
-call pathogen#infect()
-call pathogen#helptags()
+" call pathogen#infect()
+" call pathogen#helptags()
 " }}}
 
 " General Settings----------- {{{
@@ -317,12 +381,12 @@ inoremap <ESC> <nop>
 
 " bracket maps----------- {{{
 " recommended from tpope in unimpaired.vim
-nmap < [
-nmap > ]
-xmap < [
-xmap > ]
-omap < [
-omap > ]
+" nmap < [
+" nmap > ]
+" xmap < [
+" xmap > ]
+" omap < [
+" omap > ]
 " " }}}
 
 " remap motion----------- {{{
@@ -441,12 +505,10 @@ augroup END
 set mouse=a
 
 nmap <F5> <Plug>VimspectorContinue
-nmap <leader><F5> <Plug>VimspectorReset
+nmap <leader><F5> :VimspectorReset<CR>
 
 nmap <F6> <Plug>VimspectorPause
 nmap <leader><F6> <Plug>VimspectorStop
-
-nmap <leader><F7> :VimspectorReset<CR>
 
 nmap <F9> <Plug>VimspectorToggleBreakpoint
 nmap <leader><F9> <Plug>VimspectorToggleConditionalBreakpoint
@@ -456,8 +518,7 @@ nmap <leader><F10> <Plug>VimspectorStepInto
 nmap <F12> <Plug>VimspectorStepOut
 nmap <leader><F12> <Plug>VimspectorRunToCursor
 "this is for autocompletion in watch window
-let g:ycm_semantic_triggers =  {
-  \   'VimspectorPrompt': [ '.', '->', ':', '<' ] }
+let g:ycm_semantic_triggers =  { 'VimspectorPrompt': [ '.', '->', ':', '<' ] }
 " }}}
 
 " vimwiki----------- {{{
@@ -567,3 +628,9 @@ command! -bang -nargs=* GGrep
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 """"""""""""""
 " }}}
+"
+" IndentGuides----------- {{{
+let g:indentguides_spacechar = '┆'
+let g:indentguides_tabchar = '|'
+" " }}}
+

@@ -135,6 +135,11 @@ fo() {
         [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
     fi
 }
+# FZF commands to fd-find.
+# fd-find is recommended by junegunn.
+# has obviously nicer syntax than find.
+# Will exclude hidden files and files ignored by some gitignore.
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 
 # export PATH=/path/to/your/qt/installation/qtversion/gcc_64/bin:$PATH
 # export QT_SELECT=qt5-x86_64-linux-gnu

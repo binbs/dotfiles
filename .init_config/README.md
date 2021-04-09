@@ -19,7 +19,7 @@ Nice Commands:
 
 ## Cloning
 
-    git clone --bare <git-repo-url> $HOME/.cfg
+    git clone --bare https://github.com/binbsoffn/dotfiles.git $HOME/.cfg
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
     config checkout
@@ -44,21 +44,14 @@ Whenever the package manager provides only unsuitable vim versions,
 it**'s actually pretty straightforward to compile from source...
     git clone https://github.com/vim/vim
     cd vim
-    ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-cscope
+    ./configure --with-features=huge --enable-multibyte --enable-python3interp=yes --enable-cscope --enable-fail-if-missing
 
 ### Getting plugins
-you need to install pathogen manually
-mkdir -p ~/.vim/autoload ~/.vim/bundle
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+Fire up vim and type
+:PlugInstall(yeah plug must be installed somehow...)
 
-You can use the python script lying in the .init_config folder accompanying this document
-For the vim-plug plugins use this and a `:PlugInstall` inside vim
-
-    ./extract_git_remotes ~/.vim/plugged --clone
-
-For the pathogen plugins use this one and some `:HelpTags` inside vim
-
-    ./extract_git_remotes ~/.vim/bundle --clone
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ### Submodules
 Adding can be done using
