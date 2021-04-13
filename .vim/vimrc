@@ -288,6 +288,7 @@ nnoremap <localleader>r :YcmCompleter RestartServer<CR>
 nmap <leader>D <plug>(YCMHover)
 "
 "always use the recommended parameters for rls completer...
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_extra_conf_globlist = [$HOME."/rust_projects/*"]
 let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_enable_diagnostic_highlighting = 1
@@ -309,6 +310,12 @@ let g:ycm_language_server =
 \     'project_root_files': ['Cargo.toml']
 \   }
 \ ]
+" this is for autocompletion in vimspector
+let g:ycm_semantic_triggers =
+\{
+\ 'VimspectorPrompt':
+\[ '.', '->', ':', '<' ]
+\}
 let g:ycm_filetype_blacklist = {}
 " }}}
 
@@ -459,8 +466,7 @@ set wildignore+=*.tar.*
 set wildcharm=<C-z>
 " This one opens a tabbable list to scroll through open buffers
 
-nnoremap <leader>b :buffer <C-z><S-Tab>
-nnoremap <leader>B :vs <C-z><S-Tab>
+nnoremap <leader>b :Buffers <CR>
 " nnoremap <leader>b :ls<CR>:b<Space>
 " nnoremap <leader>l :bn<CR>
 " nnoremap <leader>h :bn<CR>

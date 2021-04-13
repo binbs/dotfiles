@@ -139,6 +139,7 @@ fo() {
 # fd-find is recommended by junegunn.
 # has obviously nicer syntax than find.
 # Will exclude hidden files and files ignored by some gitignore.
+export FZF_DEFAULT_OPTS="--cycle --multi --no-mouse --bind ctrl-a:select-all"
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 
 # export PATH=/path/to/your/qt/installation/qtversion/gcc_64/bin:$PATH
@@ -152,3 +153,6 @@ export PATH=$PATH:$HOME/proggs/lm4tools/lm4flash
 
 # completion for alacritty
 source /home/olli/proggs/alacritty/extra/completions/alacritty.bash
+
+# Navi commandline completion
+eval "$(navi widget bash)"
