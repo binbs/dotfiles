@@ -628,7 +628,12 @@ clientkeys = gears.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end ,
-        {description = "(un)maximize horizontally", group = "client"})
+        {description = "(un)maximize horizontally", group = "client"}),
+
+        -- mouse clicks as they are too noisy
+    awful.key({ modkey,           }, "c", function () awful.spawn("xdotool click 1") end,
+              {description = "mouse clicks as they are too noisy", group = "mouse"})
+
 
 )
 
@@ -889,7 +894,9 @@ autorunApps =
 
 if autorun then
     for app = 1, #autorunApps do
-        awful.util.spawn(autorunApps[app])
+        naughty.notify({title="starting", text=autorunApps[app]})
+        awful.spawn.single_instance(autorunApps[app], {rule = { }})
     end
 end
+
 -- }}}
