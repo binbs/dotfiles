@@ -96,6 +96,13 @@ set autochdir " make current file's directory current working directory
 let mapleader=","
 let maplocalleader=",,"
 " }}}
+"
+" Motion and other mappings----------- {{{
+nnoremap <leader>L :cnext<CR>
+nnoremap <leader>H :cprevious<CR>
+nnoremap <leader>l :lnext<CR>
+nnoremap <leader>h :lprevious<CR>
+" }}}
 
 set nocompatible              " required
 set hidden
@@ -111,7 +118,8 @@ set encoding=utf-8
 set t_Co=256                                " 256 colors
 colorscheme wombat256mod
 colorscheme gruvbox "wombat256mod
-set guifont=mononoki\ Nerd\ Font\ 18
+" colorscheme solarized
+" set guifont=mononoki\ Nerd\ Font\ 18
 
 let g:airline_theme='minimalist'                " set airline theme
 let g:airline_powerline_fonts = 1
@@ -165,6 +173,8 @@ augroup vim_markdown
     autocmd BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.mdwn,*.md set ft=markdown
 augroup END
 
+nnoremap L :cn<CR>
+nnoremap H :cp<CR>
 " }}}
 
 " Tagbar settings----------- {{{
@@ -534,7 +544,7 @@ function! VimwikiFindIncompleteTasks()
 endfunction
 
 function! VimwikiFindAllIncompleteTasks()
-    VimwikiSearch /- \[ \]/
+    VimwikiSearch /- \[[^X]\]/
     lopen
 endfunction
 
