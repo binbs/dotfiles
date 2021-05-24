@@ -457,20 +457,20 @@ globalkeys = gears.table.join(
     -- awesome commands
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --           {description = "show main menu", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
+    -- awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    --           {description = "quit awesome", group = "awesome"}),
 
     -- tagging commands
     awful.key({ modkey,   "Control"        }, "h",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,   "Control"                }, "l",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
+    -- awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+    --           {description = "go back", group = "tag"}),
     awful.key({modkey, "Shift"       }, "n", move_to_new_tag,
             {description = "move currently selected client to new tag", group="tag"}),
 
@@ -512,16 +512,13 @@ globalkeys = gears.table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+              --
     -- note taking zeug
-      awful.key({ modkey }, "v", function()
-          awful.spawn("terminator -T QuickNotes -x notetaker")
-      end,
-      {description = "Launch Notetaking from within vim", group = "launcher"}),
+      awful.key({ modkey }, "v", function() awful.spawn("terminator -T QuickNotes -x notetaker") end,
+              {description = "Launch Notetaking from within vim", group = "launcher"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function ()
-                        awful.spawn("dmenu_run")
-                end,
+    awful.key({ modkey },            "r",     function () awful.spawn("dmenu_run") end,
               {description = "run prompt", group = "launcher"}),
     -- awful.key({ modkey, "Control" },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --           {description = "run in current tag", group = "launcher"}),
@@ -537,11 +534,16 @@ globalkeys = gears.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"}),
+              {description = "lua execute prompt", group = "awesome"})
 
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+    -- -- mouse clicks as they are too noisy
+    -- awful.key({ modkey,           }, "q", function () awful.spawn("xdotool click 1") end,
+    --           {description = "mouse left clicks as they are too noisy", group = "mouse"}),
+    -- awful.key({ modkey,           }, "w", function () awful.spawn("xdotool click 3") end,
+    --           {description = "mouse right clicks as they are too noisy", group = "mouse"})
+    -- awful.key({ modkey,           }, "k", function () awful.spawn_with_shell("keynav") end,
+    --           {description = "spawns keynac <C-,> to activate", group = "mouse"})
+
 )
 
 clientkeys = gears.table.join(
@@ -628,12 +630,7 @@ clientkeys = gears.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end ,
-        {description = "(un)maximize horizontally", group = "client"}),
-
-        -- mouse clicks as they are too noisy
-    awful.key({ modkey,           }, "c", function () awful.spawn("xdotool click 1") end,
-              {description = "mouse clicks as they are too noisy", group = "mouse"})
-
+        {description = "(un)maximize horizontally", group = "client"})
 
 )
 
@@ -894,7 +891,7 @@ autorunApps =
 
 if autorun then
     for app = 1, #autorunApps do
-        naughty.notify({title="starting", text=autorunApps[app]})
+        -- naughty.notify({title="starting", text=autorunApps[app]})
         awful.spawn.single_instance(autorunApps[app], {rule = { }})
     end
 end

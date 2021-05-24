@@ -13,3 +13,6 @@
 [submodule ".config/awesome/tyrannical"]
 	path = .config/awesome/tyrannical
 	url = https://github.com/Elv13/tyrannical.git
+[submodule ".config/kitty/kitty-themes"]
+	path = .config/kitty/kitty-themes
+	url = https://github.com/dexpota/kitty-themes.git
