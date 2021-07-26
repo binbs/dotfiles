@@ -1,4 +1,8 @@
 " vim: set ft=vim:
+"this is needed for little older vim.
+" to remap tab keys.
+" let &t_TI = "\<Esc>[>4;2m"
+" let &t_TE = "\<Esc>[>4;m"
 
 " Install/update plug----------- {{{
  if empty(glob('~/.vim/autoload/plug.vim'))
@@ -16,11 +20,7 @@ call plug#begin('~/.vim/plugged')
 
     " File Navigation
     Plug 'majutsushi/tagbar'
-    Plug 'scrooloose/nerdtree'
-
-    " Python plugins
-    " Plug 'python-mode/python-mode'
-    Plug 'sagi-z/vimspectorpy'
+    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle' }
 
     " Rust y plugins
     Plug 'rhysd/rust-doc.vim'
@@ -36,15 +36,17 @@ call plug#begin('~/.vim/plugged')
 " Commands to buildyoucompleteme:
 " git submodule update init -- recursive
 " python3 install.py --clangd-completer --rust-completer
-    Plug '~/.vim/plugged/YouCompleteMe'
+    Plug '~/.vim/plugged/YouCompleteMe', {'on': 'YcmRestartServer'}
     Plug 'puremourning/vimspector'
+    " Plug 'sagi-z/vimspectorpy'
+    Plug 'ilyachur/cmake4vim'
     "
     " vim Candy
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    " Plug 'flazz/vim-colorschemes'
-    Plug 'mhinz/vim-startify'
-    Plug 'ryanoasis/vim-devicons'
+    "Plug 'mhinz/vim-startify'
+    " devicons break things on tmux and ssh and kitty...
+    " Plug 'ryanoasis/vim-devicons'
     Plug 'thaerkh/vim-indentguides'
 
     "tpope plugins
@@ -54,23 +56,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'https://tpope.io/vim/fugitive'
     Plug 'tpope/vim-speeddating'
     Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-speeddating'
-    Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-abolish'
 
     " Text writing plugins
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'], 'on': 'MarkdownPreviewToggle'}
     Plug 'lervag/vimtex'
     Plug 'dbmrq/vim-ditto'
+    " requires Abolish
     Plug 'jdelkins/vim-correction'
 
     " Snippets and accelerators
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    " makes python available in snippets
     Plug 'reconquest/vim-pythonx'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'scrooloose/nerdcommenter'
-    Plug 'ervandew/supertab'
+    " Supercharges tab key. not sure if i like that
+    " Plug 'ervandew/supertab'
 
     " tmux
     Plug 'jpalardy/vim-slime', {'branch':'main'}
@@ -78,12 +81,6 @@ call plug#begin('~/.vim/plugged')
 
     " Notes.maybe add taskwarrior here again or so.
     Plug 'vimwiki/vimwiki'
-
-
-
-
-
-
 
 call plug#end()
  " }}}
@@ -93,22 +90,15 @@ syntax on
 filetype plugin indent on
 set autoread
 set autochdir " make current file's directory current working directory
+
 " leader keys----------- {{{
 let mapleader=","
 let maplocalleader=",,"
 " }}}
-"
-" Motion and other mappings----------- {{{
-nnoremap <leader>L :cnext<CR>
-nnoremap <leader>H :cprevious<CR>
-nnoremap <leader>l :lnext<CR>
-nnoremap <leader>h :lprevious<CR>
-" }}}
 
 set nocompatible              " required
 set hidden
-" disabled in favor of ctrl-space
-set showtabline=0
+set showtabline=2
 " uses a caseinsensitive search unless caps are
 " put inside search string
 set ignorecase "required for smartcase
@@ -124,22 +114,24 @@ highlight CursorLine term=bold
 highlight CursorLine cterm=bold
 highlight CursorLine ctermbg=lightred
 highlight Pmenu ctermfg=darkblue
+highlight Search ctermbg=3
 
  let g:airline_theme='minimalist'                " set airline theme
  let g:airline_powerline_fonts = 1
 
  set shell=/bin/bash
 
- set number relativenumber
+ " Display linenumbers.
+ set number
+ set relativenumber
  augroup numbertoggle
    autocmd!
    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
  augroup END
 
- set ruler
-
  set ttyfast                                 " terminal acceleration
+ set lazyredraw
 
  set tabstop=4                               " 4 whitespaces for tabs visual presentation
  set shiftwidth=4                            " shift lines by 4 spaces
@@ -155,12 +147,12 @@ highlight Pmenu ctermfg=darkblue
 
  set backup 	                            " no backup files
  set writebackup                            " only in case you don't want a backup file while editing
- set backupdir=~/.vim_backup_files      "backup files go here...
- " set noswapfile 	                            " no swap files
+ set backupdir=~/.vim/.vim_backup_files          "backup files go here...
+ set noswapfile 	                        " no swap files
  set undofile
- set undodir=~/.vim_undofiles            "and undo here. This will
-                                             " hopefully declutter all my projects
-
+"and undo here. This will
+" hopefully declutter all my projects
+ set undodir=~/.vim/.vim_undofiles
 
  set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
 
@@ -180,12 +172,10 @@ highlight Pmenu ctermfg=darkblue
      autocmd!
      autocmd BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.mdwn,*.md set ft=markdown
  augroup END
-
- nnoremap L :cn<CR>
- nnoremap H :cp<CR>
  " }}}
 
  " Tagbar settings----------- {{{
+ nnoremap <F8> :TagbarToggle<CR>
  let g:tagbar_autofocus=1
  let g:tagbar_width=42
 
@@ -227,37 +217,12 @@ highlight Pmenu ctermfg=darkblue
  nnoremap <C-n> :NERDTreeToggle<CR><C-C>
  " }}}
 
- " NERDCommenter settings" ----------- {{{
- " Add spaces after comment delimiters by default
- let g:NERDSpaceDelims = 1
-
- " Use compact syntax for prettified multi-line comments
- let g:NERDCompactSexyComs = 1
-
- " Align line-wise comment delimiters flush left instead of following code indentation
- let g:NERDDefaultAlign = 'left'
-
- " Set a language to use its alternate delimiters by default
- " let g:NERDAltDelims_java = 1
-
- " Add your own custom formats or override the defaults
- let g:NERDCustomDelimiters = { 'c': { 'left': '/*/','right': '/*/' } }
-
- " Allow commenting and inverting empty lines (useful when commenting a region)
- let g:NERDCommentEmptyLines = 0
-
- " Enable trimming of trailing whitespace when uncommenting
- let g:NERDTrimTrailingWhitespace = 1
- " }}}
-
  " JuneGunn.EasyAlign ----------- {{{
  xmap ga <Plug>(EasyAlign)
  nmap ga <Plug>(EasyAlign)
-
  " }}}
 
  " Some autocommands...----------- {{{
-
  " highlight 'long' lines (>= 80 symbols) in python files
  augroup vimrc_autocmds
      autocmd!
@@ -291,17 +256,12 @@ highlight Pmenu ctermfg=darkblue
 
  " YouCompleteMe Settings----------- {{{
  nnoremap <leader>g :YcmCompleter GoTo<CR>
- nnoremap <leader>G :YcmCompleter GoToDefinition<CR>
- nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
- " nnoremap <leader>D :YcmCompleter GoToImplementation<CR>
  nnoremap <leader>j :YcmCompleter GoToReferences<CR>
- nnoremap <leader>f :YcmCompleter FixIt<CR>
- nnoremap <leader>F :YcmDiag<CR>
- " nnoremap <leader>F :YcmCompleter Format<CR>
- " nnoremap <leader>E :YcmCompleter ExecuteCommand<CR>
+ nnoremap <leader>yf :YcmCompleter FixIt<CR>
+ nnoremap <leader>yF :YcmCompleter Format<CR>
  nnoremap <leader>K :YcmCompleter GetDoc<CR>
  nnoremap <leader>R :YcmCompleter RefactorRename<CR>
- nnoremap <localleader>r :YcmCompleter RestartServer<CR>
+ nnoremap <leader>r :YcmRestartServer<CR>
  "toggle hints, use nmap instead of nnoremap when using plug
  nmap <leader>D <plug>(YCMHover)
  "
@@ -314,9 +274,10 @@ highlight Pmenu ctermfg=darkblue
  let g:ycm_open_loclist_on_ycm_diags = 1
 
  let g:ycm_key_invoke_completion = '<C-a>'
- let g:ycm_key_list_select_completion = ['<Down>', '<C-n>']
- let g:ycm_key_list_previous_completion = ['<Up>', '<C-p>']
- let g:SuperTabDefaultCompletionType = '<C-n>'
+ let g:ycm_key_list_select_completion = ['<Down>', '<C-n>', '<C-j>']
+ let g:ycm_key_list_previous_completion = ['<Up>', '<C-p>', '<C-k>']
+
+ " let g:SuperTabDefaultCompletionType = '<C-n>'
  let g:ycm_complete_in_comments = 1
  let g:ycm_seed_identifiers_with_syntax = 1
  let g:ycm_collect_identifiers_from_comments_and_strings = 1
@@ -341,14 +302,13 @@ highlight Pmenu ctermfg=darkblue
  " Ultisnips settings----------- {{{
  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
  let g:UltiSnipsListSnippets='<c-l>'
- let g:UltiSnipsJumpForwardTrigger='<Tab>'
- let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
- let g:UltiSnipsExpandTrigger='<Tab>'
+ let g:UltiSnipsJumpForwardTrigger='<TAB>'
+ let g:UltiSnipsJumpBackwardTrigger='<S-TAB>'
+ let g:UltiSnipsExpandTrigger='<TAB>'
  " let g:UltiSnipsJumpForwardTrigger='<c-j>'
  " let g:UltiSnipsJumpBackwardTrigger='<c-k>'
  " let g:UltiSnipsExpandTrigger='<c-w>'
- let g:UltiSnipsSnippetDirectories = [$HOME."/.vim/bundle/vim-snippets/UltiSnips/"]
- " let g:UltiSnipsSnippetDirectories=['UltiSnips']
+ let g:UltiSnipsSnippetDirectories = ["~/.vim/bundle/vim-snippets/UltiSnips/"]
  " If you want :UltiSnipsEdit to split your window.
  let g:UltiSnipsEditSplit='vertical'
  "" }}}
@@ -367,7 +327,7 @@ highlight Pmenu ctermfg=darkblue
  "
  " }}}
 
- " Tabular mapping, common to all files----------- {{{
+ " remove this, if junegunns easyalign works for markdown tables Tabular mapping, common to all files----------- {{{
  if exists(":Tabularize")
      " aligns along '='
      nmap <Leader>a= :Tabularize /=<CR>
@@ -394,57 +354,34 @@ endif
  " vimrc management----------- {{{
  nnoremap <leader>ev     :vs $MYVIMRC<CR>
  nnoremap <leader>sv     :source $MYVIMRC<CR>
+" automatically source vimrc
+augroup vimr_autosource
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | echom "Reloaded $MYVIMRC"
+augroup END
  " }}}
 
  " spacebar folding----------- {{{
  nnoremap <space>        za
+ nnoremap <leader>c0     :set conceallevel=0<CR>
+ nnoremap <leader>c1     :set conceallevel=1<CR>
+ nnoremap <leader>c2     :set conceallevel=2<CR>
+ nnoremap <leader>f0     :set foldlevel=0<CR>
+ nnoremap <leader>f1     :set foldlevel=1<CR>
+ nnoremap <leader>f2     :set foldlevel=2<CR>
+ nnoremap <leader>f3     :set foldlevel=3<CR>
+ nnoremap <leader>f4     :set foldlevel=4<CR>
+ nnoremap <leader>f5     :set foldlevel=5<CR>
  " }}}
 
- " put esc on jk----------- {{{
- vnoremap jk  <ESC>
- vnoremap <ESC> <nop>
- inoremap jk  <ESC>
- inoremap <ESC> <nop>
- " }}}
-
- " bracket maps----------- {{{
- " recommended from tpope in unimpaired.vim
- " nmap < [
- " nmap > ]
- " xmap < [
- " xmap > ]
- " omap < [
- " omap > ]
+ " " abbreviations, common----------- {{{
+ " Should be handled by vim-abolish
+ " iabbrev tehn then
+ " iabbrev tahn than
+ " iabbrev adn and
+ " iabbrev waht what
+ " iabbrev isntall install
  " " }}}
-
- " remap motion----------- {{{
- no <down> <Nop>
- no <left> <Nop>
- no <right> <Nop>
- no <up> <Nop>
-
- ino <down> <Nop>
- ino <left> <Nop>
- ino <right> <Nop>
- ino <up> <Nop>
-
- vno <down> <Nop>
- vno <left> <Nop>
- vno <right> <Nop>
- vno <up> <Nop>
- " }}}
-
- " Tagbar----------- {{{
- nnoremap <F8> :TagbarToggle<CR>
- " }}}
-
- " abbreviations, common----------- {{{
- iabbrev tehn then
- iabbrev tahn than
- iabbrev adn and
- iabbrev waht what
- iabbrev isntall install
- " }}}
 
  " operator remapping" ----------- {{{
  " parenthesis
@@ -465,12 +402,12 @@ endif
  onoremap an{ :<c-u>normal! f{va{<CR>
  onoremap al{ :<c-u>normal! F{va{<CR>
 
+ " This autocorrects when in insertmode the last error by the
+ " first suggestion
  inoremap <leader>l <c-g>u<ESC>[s1z=`]a<c-g>u
- " check omap-info for details
  " " }}}
 
  " Function Key mappings----------- {{{
- nnoremap <F3> :Files<CR>
  nnoremap <leader><F3> :Rg<CR>
  nnoremap <leader>b :Buffers<CR>
  nnoremap <F4> :set relativenumber!<CR>
@@ -489,21 +426,17 @@ endif
  set wildcharm=<C-z>
  " This one opens a tabbable list to scroll through open buffers
 
- nnoremap <leader>b :Buffers <CR>
- " nnoremap <leader>b :ls<CR>:b<Space>
- " nnoremap <leader>l :bn<CR>
- " nnoremap <leader>h :bn<CR>
-
  set path=.,**
- nnoremap <localleader>f :find *
- nnoremap <localleader>s :sfind *
- nnoremap <localleader>v :vert sfind *
- nnoremap <localleader>t :tabfind *
 
- nnoremap <leader>F: find <C-R>=expand('%:h').'/*'<CR>
- nnoremap <leader>S: sfind <C-R>=expand('%:h').'/*'<CR>
- nnoremap <leader>V: vert sfind <C-R>=expand('%:h').'/*'<CR>
- nnoremap <leader>T: tabfind <C-R>=expand('%:h').'/*'<CR>
+ " nnoremap <localleader>f :find *
+ " nnoremap <localleader>s :sfind *
+ " nnoremap <localleader>v :vert sfind *
+ " nnoremap <localleader>t :tabfind *
+
+ " nnoremap <leader>F: find <C-R>=expand('%:h').'/*'<CR>
+ " nnoremap <leader>S: sfind <C-R>=expand('%:h').'/*'<CR>
+ " nnoremap <leader>V: vert sfind <C-R>=expand('%:h').'/*'<CR>
+ " nnoremap <leader>T: tabfind <C-R>=expand('%:h').'/*'<CR>
 
  " This sets marks to jump back to the last modified file
  " with given filename/Ending
@@ -531,7 +464,7 @@ endif
  " These are the possible vimspector keymappings
  " Human binds them to the F-Keys(somewhat opinionated...)
  " This makes the mouse work on the Winbar which pops up on starting vimspector
- set mouse=a
+ " set mouse=a
 
  nmap <F5> <Plug>VimspectorContinue
  nmap <leader><F5> :VimspectorReset<CR>
@@ -674,6 +607,7 @@ let g:correction_filetypes=[
             \'vimwiki', "plaintex", "tex", "latex",
             \"plaintex", "rst", "pandoc"
             \]
+
 nnoremap <leader>A :e~/.vim/plugged/vim-correction/after/plugin/correction.vim<CR>
 
  " }}}
@@ -683,18 +617,55 @@ nnoremap <leader>A :e~/.vim/plugged/vim-correction/after/plugin/correction.vim<C
  " Does not work properly for Debugging as some folder also has to be opened
 :command! OpenInVSCode exe "silent !code --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
 
-inoremap <C-j> <C-n>
-inoremap <C-k> <C-p>
+" remapping movement to be more consistent----------- {{{
 
-cnoremap <C-j> <C-n>
-cnoremap <C-k> <C-p>
+imap <C-j> <C-n>
+imap <C-k> <C-p>
+cmap <C-j> <C-n>
+cmap <C-k> <C-p>
+" }}}
 
+" put esc on jk----------- {{{
+xnoremap jk  <ESC>
+xnoremap <ESC> <nop>
+inoremap jk  <ESC>
+inoremap <ESC> <nop>
+" }}}
+
+" tab remapping. And tpope unimpaired recommendations----------- {{{
+" recommended from tpope in unimpaired.vir
+nmap < [
+nmap > ]
+xmap < [
+xmap > ]
+omap < [
+omap > ]
+nmap << [[
+nmap >> ]]
+xmap << [[
+xmap >> ]]
+omap << [[
+omap >> ]]
+"
+"care when mapping tab keys
+" https://vi.stackexchange.com/questions/16161/how-to-map-c-i-separate-from-tab#23344
+" https://unix.stackexchange.com/questions/631241/mapping-otherwise-conflicting-or-unmappable-keys-in-terminal-vim
+" https://stackoverflow.com/questions/14641942/how-to-unmap-tab-and-do-not-make-ctrl-i-invalid-in-vim/
+" nnoremap <C-i> :echom "C-i was pressed"<cr>
+nnoremap <C-I> <C-I>
 nnoremap <S-Tab> <<
 nnoremap <Tab> >>
-xnoremap <Tab> >gv
-xnoremap <S-Tab> <gv
 
-augroup fix-ultisnips-overriding-tab-visual-selection
-    autocmd!
-    autocmd VimEnter * xnoremap <Tab> >gv
-augroup END
+" nnoremap <tab> :echom "Tab was pressed"<cr>'
+
+" augroup fix-ultisnips-overriding-tab-visual-selection
+"     autocmd!
+"     autocmd VimEnter * xnoremap <Tab> >gv
+"     autocmd VimEnter * xnoremap <S-Tab> <gv
+" augroup END
+
+" }}}
+
+" Abolish----------- {{{
+let g:abolish_save_file="~/.vim/abolish.save"
+" }}}

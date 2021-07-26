@@ -2,12 +2,13 @@
 	email = 9432238+binbsoffn@users.noreply.github.com
 	name = binbsoffn
 [merge]
-	tool = kdiff3
-[mergetool "kdiff3"]
-	trustExitCode = false
+	tool = vimdiff
 [diff]
-	guitool = vim
-[difftool "kdiff3"]
-	trustExitCode = false
+	tool = vimdiff
+    prompt = false
 [credential]
 	helper = cache --timeout=36000
+[core]
+	excludesFile = ~/.gitignore_global
+[color]
+	ui = auto

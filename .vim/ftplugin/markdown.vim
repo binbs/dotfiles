@@ -1,26 +1,8 @@
-nmap <F5> <Plug>MarkdownPreviewToggle
+nmap <buffer> <F5> <Plug>MarkdownPreviewToggle
 setlocal spell
 setlocal spelllang=de,en
 setlocal complete+=k
 setlocal dictionary+=/usr/share/dict/words
-
-" Tabularize----------- {{{
-" this ffunction realigns on '|' every time it's typed into
-if (exists(":Tabularize"))
-    inoremap <buffer><silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-    function! s:align()
-        let p = '^\s*|\s.*\s|\s*$'
-        if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-            let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-            let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-            Tabularize/|/l1
-            normal! 0
-            call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-        endif
-    endfunction
-endif
-" }}}
 
 " -Markdown plugin----------- {{{
 " let g:mkdp_path_to_chrome = "firefox"

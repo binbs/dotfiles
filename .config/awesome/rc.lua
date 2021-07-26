@@ -80,7 +80,7 @@ end
 beautiful.init("/home/olli/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "kitty"
 file_explorer = "nemo"
 alternate_file_browser = "sunflower"
 internet_browser = "firefox"
@@ -345,17 +345,17 @@ tyrannical.tags = {
         }
     } ,
 
-    {
-        name        = "Bewerbungen",
-        init        = true, -- This tag wont be created at startup, but will be when one of the
-                             -- client in the "class" section will start. It will be created on
-                             -- the client startup screen
-        exclusive   = false,
-        class       = {
-            "Assistant"     , "Okular"         , "Evince"    , "EPDFviewer"   , "xpdf",
-            "Xpdf"          ,
-        }
-    } ,
+    -- {
+    --     name        = "Bewerbungen",
+    --     init        = true, -- This tag wont be created at startup, but will be when one of the
+    --                          -- client in the "class" section will start. It will be created on
+    --                          -- the client startup screen
+    --     exclusive   = false,
+    --     class       = {
+    --         "Assistant"     , "Okular"         , "Evince"    , "EPDFviewer"   , "xpdf",
+    --         "Xpdf"          ,
+    --     }
+    -- } ,
 
     {
         name        = "COM",
@@ -514,8 +514,10 @@ globalkeys = gears.table.join(
               {description = "select previous", group = "layout"}),
               --
     -- note taking zeug
-      awful.key({ modkey }, "v", function() awful.spawn("terminator -T QuickNotes -x notetaker") end,
+      awful.key({ modkey }, "v", function() awful.spawn("kitty -T QuickNotes notetaker") end,
               {description = "Launch Notetaking from within vim", group = "launcher"}),
+      -- awful.key({ modkey }, "v", function() awful.spawn("terminator -T QuickNotes -x notetaker") end,
+      --         {description = "Launch Notetaking from within vim", group = "launcher"}),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.spawn("dmenu_run") end,

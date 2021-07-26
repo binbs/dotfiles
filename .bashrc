@@ -152,7 +152,12 @@ LLVM_INSTALL_DIR=/usr/lib/llvm-10/
 export PATH=$PATH:$HOME/proggs/lm4tools/lm4flash
 
 # completion for alacritty
-source /home/olli/proggs/alacritty/extra/completions/alacritty.bash
+# source /home/olli/proggs/alacritty/extra/completions/alacritty.bash
 
 # Navi commandline completion
 eval "$(navi widget bash)"
+
+# These settings are to switch between the mesa amd driver and the GPUOpen-Drivers
+# https://github.com/GPUOpen-Drivers/AMDVLK
+export AMD_VULKAN_ICD=AMDVLK
+#export AMD_VULKAN_ICD=RADV
