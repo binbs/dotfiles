@@ -135,3 +135,5 @@ export PATH=$PATH:/usr/local/texlive/2020/bin/i386-linux
 
 export LLVM_INSTALL_DIR=/usr/lib/llvm-9
 export PATH=$PATH:$HOME/proggs/owncloud-client/build/bin/
+
+export PATH=$PATH:/usr/local/go/bin/
