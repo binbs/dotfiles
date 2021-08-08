@@ -80,6 +80,7 @@ end
 beautiful.init("/home/olli/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+--terminal = "kitty -o allow_remote_control=yes"
 terminal = "kitty"
 file_explorer = "nemo"
 alternate_file_browser = "sunflower"
@@ -878,17 +879,15 @@ autorunApps =
     "xrandr --output DVI-D-0 --left-of HDMI-A-0",
     -- also integrate gnome-keyring with PAM
     "keepassxc",
-    -- "keepnote",
     "flatpak run org.gnome.Fractal",
     "gtk-redshift",
     "firefox",
     "evolution",
-    -- "terminator -T IRSSI -x irssi ",
     "numlockx on",
     "nm-applet",
     "owncloud",
-    -- "QOwnNotes",
     "blueman-applet",
+    "syncthing-gtk",
 }
 
 if autorun then
