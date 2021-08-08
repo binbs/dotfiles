@@ -619,10 +619,10 @@ nnoremap <leader>A :e~/.vim/plugged/vim-correction/after/plugin/correction.vim<C
 
 " remapping movement to be more consistent----------- {{{
 
-imap <C-j> <C-n>
-imap <C-k> <C-p>
-cmap <C-j> <C-n>
-cmap <C-k> <C-p>
+"imap <C-j> <C-n>
+"imap <C-k> <C-p>
+"cmap <C-j> <C-n>
+"cmap <C-k> <C-p>
 " }}}
 
 " put esc on jk----------- {{{
